@@ -1,3 +1,4 @@
+# Project Setup
 setuptools
 twine
 pylint
@@ -5,4 +6,5 @@ pytest
 pytest-cov
 mypy
 
+# ...
 numpy
