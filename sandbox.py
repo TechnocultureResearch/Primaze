@@ -1,12 +1,13 @@
 #!venv/bin/python
 
 """ main.py (Sandbox) : Entry Point of the project """
-from Core import Core
+from Pricore import Core
 
 
 def main():
     """ Entry point of the program """
-    Core.print_version()
+    print(Core.version())
+    print(Core.double(3.14))
 
 
 if __name__ == '__main__':
