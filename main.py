@@ -1,4 +1,4 @@
-""" main.py : Entry Point of the project """
+""" main.py (Sandbox) : Entry Point of the project """
 from Core import Core
 
 
