@@ -6,6 +6,6 @@ def print_version():
     print('version 1.0.0')
 
 
-def double(i: float) -> float:
+def double(i):
     """ doubles a given value """
     return 2*i

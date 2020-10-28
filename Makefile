@@ -5,20 +5,15 @@ init:
 	sudo apt-get update
 	pip install -r requirements.txt
 
-lint:
-	# ...
-
-install:
-	python setup.py install
-
-# pypi:
-# 	python setup.py register
-
 clean:
-	-rm -rf build dist Primaze.egg-info
+	rm --force --recursive build/ dist/
+	rm --force --recursive Primaze.egg-info
 
 test:
 	pytest
+
+install:
+	python setup.py install
 
 .PHONY:
 	init test clean
