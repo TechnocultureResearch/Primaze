@@ -1,5 +1,5 @@
 """ Test Cases for Core.Core functions """
-from Core import Core
+from ProjectContext import Core
 
 
 def test_double():

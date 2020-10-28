@@ -1,9 +1,11 @@
+all:
+	python ./main.py
+
 init:
-	sudo apt-get update && sudo apt-get upgrade
+	sudo apt-get update
 	pip install -r requirements.txt
 
 test:
-	# python tests/context.py
 	pytest
 
 .PHONY:
