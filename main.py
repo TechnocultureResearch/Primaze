@@ -1,3 +1,5 @@
+#!venv/bin/python
+
 """ main.py (Sandbox) : Entry Point of the project """
 from Core import Core
 
