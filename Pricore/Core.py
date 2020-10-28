@@ -1,9 +1,9 @@
 """ Core Functions """
 
 
-def print_version():
+def version():
     """ prints the version number formatted as a string """
-    print('version 1.0.0')
+    return "1.0.0"
 
 
 def double(i):

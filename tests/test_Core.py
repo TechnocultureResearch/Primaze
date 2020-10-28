@@ -6,6 +6,10 @@ def test_double():
     """ Tests Core.double function """
     assert Core.double(2) == 4
 
+
 def test_double_again():
     assert Core.double(2.21111) == 4.42222
 
+
+def test_version():
+    assert Core.version() == "1.0.0"

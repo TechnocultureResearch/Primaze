@@ -1,7 +1,7 @@
 setuptools
 pylint
 pytest
-coverage
+pytest-cov
 mypy
 
 numpy

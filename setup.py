@@ -4,7 +4,7 @@ from setuptools import setup
 setup(
     name='Primaze',
     version='1.0.0',
-    packages=['Core', 'Primaze'],
+    packages=['Pricore', 'Primaze'],
     url='',
     license='',
     author='Satyam Tiwary',
