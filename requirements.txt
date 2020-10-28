@@ -1,4 +1,5 @@
 setuptools
+twine
 pylint
 pytest
 pytest-cov

@@ -14,6 +14,11 @@ debug:
 install:
 	python setup.py install
 
+pypi:
+	python setup.py sdist bdist_wheel
+	twine upload --repository testpypi dist/*
+	# https://packaging.python.org/tutorials/packaging-projects/
+
 clean:
 	rm --force --recursive build/ dist/ htmlcov/ .pytest_cache/
 	rm --force --recursive Primaze.egg-info .coverage
