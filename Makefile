@@ -1,5 +1,5 @@
 MAIN= ./Sandbox.py
-SHELL := /bin/bash
+SHELL:= /bin/bash
 
 all:
 	python $(MAIN)
@@ -18,11 +18,11 @@ clean:
 start:
 	-source $(PWD)/.bashrc
 	-source $(PWD)/venv/bin/activate
-	pip install -r requirements.txt
 
 init:
 	sudo apt-get update
 	start
+	pip install -r requirements.txt
 
 install:
 	python setup.py install
