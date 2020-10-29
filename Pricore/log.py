@@ -1,13 +1,7 @@
 """ Core Functions """
 import logging
 from sys import stdout
-import datetime
-
-
-def delhi(sec, what):
-    '''sec and what is unused.'''
-    delhi_time = datetime.datetime.now() + datetime.timedelta(hours=5.5)
-    return delhi_time.timetuple()
+from datetime import date, datetime, timedelta
 
 
 def init():
@@ -23,4 +17,11 @@ def init():
     logging.Formatter.converter = delhi
 
     logging.info('{}'.format('='*50))
-    logging.info('Log initiated: {}'.format(datetime.date.today()))
+    logging.info('Log initiated: {}'.format(date.today()))
+
+
+### Helpers
+def delhi(sec, what):
+    '''sec and what is unused.'''
+    delhi_time = datetime.now() + timedelta(hours=5.5)
+    return delhi_time.timetuple()

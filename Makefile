@@ -20,7 +20,7 @@ type:
 lint: type
 	flake8 Pricore Primaze
 
-# ...
+# =================================================================
 start:
 	-source $(PWD)/.bashrc
 	-source $(PWD)/venv/bin/activate
