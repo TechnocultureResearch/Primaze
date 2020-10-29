@@ -18,3 +18,4 @@ def main():
 if __name__ == '__main__':
     core.init()
     main()
+    info("Program Ends Without a Crash.")
