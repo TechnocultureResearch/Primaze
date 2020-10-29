@@ -11,3 +11,7 @@ dataclasses
 
 # ...
 numpy
+
+# ...
+flask
+flask-socketio

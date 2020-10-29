@@ -11,7 +11,7 @@ debug:
 	pdb $(MAIN)
 
 clean:
-	-rm --force --recursive build/ log/ dist/ htmlcov/ .pytest_cache/
+	-rm --force --recursive build/ log/* dist/ htmlcov/ .pytest_cache/
 	-rm --force --recursive Primaze.egg-info .coverage
 
 # ...
@@ -19,9 +19,8 @@ start:
 	-source $(PWD)/.bashrc
 	-source $(PWD)/venv/bin/activate
 
-init:
+init: start
 	sudo apt-get update
-	start
 	pip install -r requirements.txt
 
 install:
