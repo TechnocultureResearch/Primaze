@@ -1,7 +1,4 @@
 language: python
-os:
-  - linux
-  - windows
 
 python:
   - "3.8"      # current default Python on Travis CI
