@@ -4,6 +4,9 @@ all:
 test:
 	pytest
 
+start:
+	pip install -r requirements.txt
+
 init:
 	sudo apt-get update
 	pip install -r requirements.txt
@@ -20,8 +23,8 @@ pypi:
 	# https://packaging.python.org/tutorials/packaging-projects/
 
 clean:
-	rm --force --recursive build/ dist/ htmlcov/ .pytest_cache/
-	rm --force --recursive Primaze.egg-info .coverage
+	-rm --force --recursive build/ dist/ htmlcov/ .pytest_cache/
+	-rm --force --recursive Primaze.egg-info .coverage
 
 .PHONY:
 	init test clean

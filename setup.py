@@ -7,7 +7,6 @@ with open("README.md", "r") as fh:
 setup(
     name='Primaze',
     version='0.0.1',
-    # packages=['Pricore', 'Primaze'],
     url='https://github.com/TechnocultureResearch/Primaze',
     license='GNU AGGPL 3',
     author='Satyam Tiwary',
@@ -20,5 +19,5 @@ setup(
         "License :: OSI Approved :: GNU Affero General Public License v3",
         "Operating System :: OS Independent",
     ],
-    python_requires='>=3.6',
+    python_requires='>=3.7',
 )
