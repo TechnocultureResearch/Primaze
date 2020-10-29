@@ -22,9 +22,13 @@
         ".bashrc": true,
         "setup.py": true,
         "setup.cfg": true,
+        "requirements.txt": true,
         "log": true,
         "scripts": true,
-        "Priserve": true
+        "Priserve": true,
+        "htmlcov": true,
+        ".pytest_cache": true,
+        ".coverage": true
     },
 
     // python settings
