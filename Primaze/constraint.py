@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
 @dataclass
-class constraint:
+class Constraint:
     name: str
-    number: float
+    number: int

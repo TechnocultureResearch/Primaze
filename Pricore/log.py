@@ -12,9 +12,9 @@ def delhi(sec, what):
 
 def init():
     logging.basicConfig(
-        level=logging.DEBUG, # DEBUG < INFO < WARNING < ERROR < CRITICAL
+        level=logging.DEBUG,  # DEBUG < INFO < WARNING < ERROR < CRITICAL
         format='%(asctime)s [%(levelname)s]: %(filename)s:%(funcName)s() - %(message)s',
-        datefmt='%I:%M%p', # %d/%m/%Y 
+        datefmt='%I:%M%p',  # %d/%m/%Y
         handlers=[
             logging.FileHandler("log/debug.log"),
             logging.StreamHandler(stdout)

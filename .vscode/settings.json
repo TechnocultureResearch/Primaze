@@ -1,38 +1,37 @@
 {
     // pytest
-    "python.linting.enabled": true,
     "python.testing.pytestArgs": [
         "."
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.nosetestsEnabled": false,
     "python.testing.pytestEnabled": true,
-
     // exclude files
     "files.exclude": {
-        "LICENSE": true,
-        "venv": true,
-        ".pypirc": true,
-        "**/*.pyc": true,
-        "**/__pycache__": true,
-        "**/__init__.py": true,
-        "README.md": true,
-        ".gitignore": true,
-        ".travis.yml": true,
-        ".bashrc": true,
-        "setup.py": true,
-        "setup.cfg": true,
-        "requirements.txt": true,
-        "log": true,
-        "scripts": true,
-        "Priserve": true,
-        "htmlcov": true,
-        ".pytest_cache": true,
-        ".coverage": true
+        "LICENSE": false,
+        "venv": false,
+        ".pypirc": false,
+        "**/*.pyc": false,
+        "**/__pycache__": false,
+        "**/__init__.py": false,
+        "README.md": false,
+        ".gitignore": false,
+        ".travis.yml": false,
+        ".bashrc": false,
+        "setup.py": false,
+        "setup.cfg": false,
+        "requirements.txt": false,
+        "log": false,
+        "scripts": false,
+        "Priserve": false,
+        "htmlcov": false,
+        ".pytest_cache": false,
+        ".coverage": false
     },
-
-    // python settings
-    "[python]": {
-        "editor.formatOnSave": true,
-    }
+    "editor.formatOnSave": true,
+    "python.linting.flake8Enabled": false,
+    "python.linting.pylintEnabled": false,
+    "python.linting.mypyEnabled": true,
+    "python.linting.enabled": true,
+    "cornflakes.linter.run": "onType"
 }

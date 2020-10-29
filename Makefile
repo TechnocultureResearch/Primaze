@@ -1,7 +1,7 @@
 MAIN= ./Sandbox.py
 SHELL:= /bin/bash
 
-all:
+all: type
 	python $(MAIN)
 
 test:
@@ -13,6 +13,12 @@ debug:
 clean:
 	-rm --force --recursive build/ log/* dist/ htmlcov/ .pytest_cache/
 	-rm --force --recursive Primaze.egg-info .coverage
+
+type:
+	mypy Pricore Primaze $(MAIN)
+
+lint: type
+	flake8 Pricore Primaze
 
 # ...
 start:

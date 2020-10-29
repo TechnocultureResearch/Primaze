@@ -14,4 +14,3 @@ def version():
 def double(i):
     """ doubles a given value """
     return 2*i
-
