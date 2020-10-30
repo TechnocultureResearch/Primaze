@@ -1,3 +1,6 @@
-class constraint:
-    def __init__(self, *args):
-        print(args)
+from dataclasses import dataclass
+
+@dataclass
+class Constraint:
+    name: str
+    number: int

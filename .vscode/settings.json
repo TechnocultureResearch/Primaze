@@ -1,9 +1,40 @@
 {
-    "python.linting.enabled": true,
+    // pytest
     "python.testing.pytestArgs": [
         "."
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.nosetestsEnabled": false,
-    "python.testing.pytestEnabled": true
+    "python.testing.pytestEnabled": true,
+    // exclude files
+    "files.exclude": {
+        "LICENSE": true,
+        "venv": true,
+        ".pypirc": true,
+        "**/*.pyc": true,
+        "**/__pycache__": true,
+        "**/__init__.py": true,
+        "README.md": true,
+        ".gitignore": true,
+        ".travis.yml": true,
+        ".bashrc": true,
+        "setup.py": true,
+        "setup.cfg": true,
+        "scripts": true,
+        "Priserve": true,
+        "htmlcov": true,
+        ".pytest_cache": true,
+        ".coverage": true,
+        ".mypy_cache": true,
+        "docs": true,
+        "main.py": true,
+        "coverage.xml": true
+    },
+    "editor.formatOnSave": true,
+    "python.linting.pylintEnabled": true,
+    "python.linting.mypyEnabled": false,
+    "python.linting.lintOnSave": true,
+    "python.linting.enabled": true,
+    "cornflakes.linter.run": "onType",
+    "python.linting.flake8Enabled": false
 }

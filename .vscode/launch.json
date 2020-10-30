@@ -1,11 +1,11 @@
 {
-    "version": "0.2.0",
+    "version": "0.0.1",
     "configurations": [
         {
             "name": "Python: Sandbox ",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/sandbox.py",
+            "program": "${workspaceFolder}/Sandbox.py",
             "console": "integratedTerminal"
         }
     ]

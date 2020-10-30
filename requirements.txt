@@ -1,10 +1,25 @@
 # Project Setup
 setuptools
 twine
-pylint
 pytest
 pytest-cov
+coverage
+codecov
 mypy
+pylint
+# mkdocs
+
 
 # ...
-numpy
+dataclasses
+
+
+# web
+flask
+nginx
+
+
+# primer
+primer3-py
+biopython
+mfeprimer-py3
