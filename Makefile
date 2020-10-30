@@ -5,7 +5,7 @@ all: type
 	python $(MAIN)
 
 test:
-	pytest tests/
+	pytest
 
 debug:
 	pdb $(MAIN)
@@ -26,7 +26,7 @@ start:
 	-source $(PWD)/venv/bin/activate
 
 init: start
-	sudo apt-get update
+	# sudo apt-get update
 	pip install -r requirements.txt
 
 install:
