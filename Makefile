@@ -11,7 +11,7 @@ debug:
 	pdb $(MAIN)
 
 clean:
-	-rm --force --recursive build/ log/* dist/ htmlcov/ .pytest_cache/
+	-rm --force --recursive build/ log/*.log dist/ htmlcov/ .pytest_cache/
 	-rm --force --recursive Primaze.egg-info .coverage
 
 type:
