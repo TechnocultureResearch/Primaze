@@ -11,5 +11,9 @@ install:
 script:
   - make test
 
+env:
+  - CODECOV_TOKEN=0172137f-fa27-4880-9345-56286971381e
+
 after_success:
+  # - bash <(curl -s https://codecov.io/bash)
   - codecov # submit coverage

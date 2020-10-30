@@ -5,7 +5,7 @@ all: type
 	python $(MAIN)
 
 test:
-	pytest
+	pytest tests/
 
 debug:
 	pdb $(MAIN)

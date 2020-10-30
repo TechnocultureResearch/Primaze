@@ -2,7 +2,8 @@
 setuptools
 twine
 pytest
-pytest-cov
+coverage
+codecov
 mypy
 flake8
 mkdocs
