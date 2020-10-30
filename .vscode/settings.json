@@ -20,7 +20,6 @@
         ".bashrc": true,
         "setup.py": true,
         "setup.cfg": true,
-        "requirements.txt": true,
         "log": true,
         "scripts": true,
         "Priserve": true,
@@ -29,7 +28,7 @@
         ".coverage": true,
         ".mypy_cache": true,
         "docs": true,
-        "main.py": true,
+        "main.py": true
     },
     "editor.formatOnSave": true,
     "python.linting.flake8Enabled": false,

@@ -1,7 +1,7 @@
 language: python
 
 python:
-  - "3.8"      # current default Python on Travis CI
+  - "3.8" # current default Python on Travis CI
 
 # command to install dependencies
 install:
@@ -10,3 +10,6 @@ install:
 # command to run tests
 script:
   - make test
+
+after_success:
+  - codecov # submit coverage
