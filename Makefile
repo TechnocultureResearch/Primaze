@@ -1,5 +1,6 @@
 MAIN= ./main.py
 SHELL:= /bin/bash
+MODULES= Pricore Primaze
 
 all: type
 	python $(MAIN)
@@ -15,10 +16,11 @@ clean:
 	-rm --force --recursive Primaze.egg-info .coverage
 
 type:
-	mypy Pricore Primaze $(MAIN)
+	mypy $(MODULES) $(MAIN)
 
-lint: type
-	flake8 Pricore Primaze
+lint: #type
+	pylint $(MODULES)
+
 
 # =================================================================
 start:

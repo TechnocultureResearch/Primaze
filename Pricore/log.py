@@ -20,7 +20,7 @@ def init():
     logging.info('Log initiated: {}'.format(date.today()))
 
 
-### Helpers
+# Helpers
 def delhi(sec, what):
     '''sec and what is unused.'''
     delhi_time = datetime.now() + timedelta(hours=5.5)
