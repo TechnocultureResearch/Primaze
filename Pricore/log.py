@@ -1,4 +1,4 @@
-""" Core Functions """
+"""Log Functions"""
 import logging
 from sys import stdout
 from datetime import date, datetime, timedelta
@@ -20,8 +20,11 @@ def init():
     logging.info('Log initiated: {}'.format(date.today()))
 
 
+
+
+
 # Helpers
 def delhi(sec, what):
-    '''sec and what is unused.'''
+    """sec and what is unused."""
     delhi_time = datetime.now() + timedelta(hours=5.5)
     return delhi_time.timetuple()

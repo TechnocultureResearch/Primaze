@@ -5,20 +5,21 @@ pytest
 pytest-cov
 coverage
 codecov
-# mypy
+mypy
 pylint
-mkdocs
+# mkdocs
+
 
 # ...
 dataclasses
 
-# ...
-numpy
 
-# ...
+# web
 flask
-flask-socketio
+nginx
+
 
 # primer
-
 primer3-py
+biopython
+mfeprimer-py3

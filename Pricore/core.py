@@ -1,4 +1,4 @@
-""" Core Functions """
+"""Core Functions"""
 from Pricore import log
 
 
