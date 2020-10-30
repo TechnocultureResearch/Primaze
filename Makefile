@@ -1,4 +1,4 @@
-MAIN= ./Sandbox.py
+MAIN= ./main.py
 SHELL:= /bin/bash
 
 all: type

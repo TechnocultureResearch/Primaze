@@ -9,13 +9,5 @@ from Primaze.constraint import Constraint
 
 def main():
     """ Entry point of the program """
-    info('Entry point')
-
     c1 = Constraint(4.5, 4.7)
     debug(c1)
-    
-
-if __name__ == '__main__':
-    core.init()
-    main()
-    info("Program Ends Without a Crash.")
