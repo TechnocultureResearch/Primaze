@@ -5,8 +5,8 @@ pytest
 pytest-cov
 coverage
 codecov
-mypy
-flake8
+# mypy
+pylint
 mkdocs
 
 # ...
