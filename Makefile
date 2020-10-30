@@ -2,7 +2,7 @@ MAIN= ./main.py
 SHELL:= /bin/bash
 MODULES= Pricore Primaze
 
-all: type
+all: #type
 	python $(MAIN)
 
 test:
