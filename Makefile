@@ -2,7 +2,7 @@ MAIN= ./main.py
 SHELL:= /bin/bash
 MODULES= Pricore Primaze
 
-all: #type
+all:
 	python $(MAIN)
 
 test:
@@ -28,8 +28,10 @@ start:
 	-source $(PWD)/venv/bin/activate
 
 init: start
-	# sudo apt-get update
+ 	# sudo apt-get install gunicorn
+	-sudo apt install nginx supervisor
 	pip install -r requirements.txt
+	# sudo apt-get update
 
 install:
 	python setup.py install

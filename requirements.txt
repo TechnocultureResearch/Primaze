@@ -16,10 +16,16 @@ dataclasses
 
 # web
 flask
+flask-bootstrap
 nginx
+
+supervisor
 
 
 # primer
 primer3-py
 biopython
 mfeprimer-py3
+
+
+pyyaml
