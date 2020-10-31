@@ -12,6 +12,7 @@ pylint
 
 # ...
 dataclasses
+termcolor
 
 
 # web

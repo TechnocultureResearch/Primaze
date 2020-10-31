@@ -1,11 +1,11 @@
 #!venv/bin/python
 from logging import info, debug, critical
-
-
-"""main.py (Sandbox) : Entry Point of the project"""
-from Pricore import core
+from Pricore.protocol import Protocol
 
 
 def main():
     """Entry point of the program"""
-    debug("c1")
+    p = Protocol('data/procedure.pz')
+    debug(p.procedure)
+    debug(p)
+    p.procedure.run()

@@ -3,8 +3,7 @@ from logging import info, debug, critical
 from Sandbox import main
 from Pricore import core
 
-
-""" Entry point of the program """
+"""main.py : Entry Point of the project"""
 core.init()
 
 info('Entry point')
