@@ -1,41 +1,36 @@
 from logging import info, debug, fatal, error
 from termcolor import colored
-from .command import Command, available_commands
+
+from Primaze.Pricore.command import CommandsDeque, available_commands
 
 
 class Procedure:
-    command_names = list()
-
+    steps = CommandsDeque()
+    command_not_found = []
+    _steps_data = []
 
     def __init__(self, _parsed_protocol):
         try:
-            self.command_names = _parsed_protocol['procedure'] # MAGIC STRING
+            self._steps_data = _parsed_protocol['procedure'] # MAGIC STRING
         except KeyError as kErr:
             fatal(kErr)
             exit(1)
+        self.compile_procedure()
+        debug(self)
 
-        self.validate_procedure()
-
-
-    def validate_procedure(self):
-        command_not_found = []
-        for _ in self.command_names:
+    def compile_procedure(self):
+        for _ in self._steps_data:
             if _ not in available_commands: 
-                command_not_found.append(_)
-        err = len(command_not_found)
+                self.command_not_found.append(_)
+            else:
+                self.steps.append()
+        err = len(self.command_not_found)
         if err:
             error("{} command{} from the procedure not found.".format(colored(err, 'red'), 's' if err > 1 else ''))
-            error(" -> ".join([colored(_, 'red' if _ in command_not_found else 'green') for _ in self.command_names]))
-            # exit(1)
-
-
-    __repr__ = lambda self: " -> ".join(self.command_names)
-
-
-    def run(self):
-        try:
-            info('Executing produce: ')
-            # return [available_commands[f]() for f in procedure_data['pipeline']]
-        except KeyError as kErr:
-            fatal(kErr)
+            error(self)
             exit(1)
+
+    __repr__ = lambda self: " -> ".join(
+        [colored(_, 'red' if _ in self.command_not_found else 'green') for _ in self._steps_data])
+    __len__ = lambda self: len(self._steps_data)
+    run = lambda self: [debug(_) for _ in self.steps]

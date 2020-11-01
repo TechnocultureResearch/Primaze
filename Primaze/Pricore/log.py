@@ -20,9 +20,6 @@ def init():
     logging.info('Log initiated: {}'.format(date.today()))
 
 
-
-
-
 # Helpers
 def delhi(sec, what):
     """sec and what is unused."""

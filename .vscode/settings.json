@@ -13,7 +13,6 @@
         ".pypirc": true,
         "**/*.pyc": true,
         "**/__pycache__": true,
-        "**/__init__.py": true,
         "README.md": true,
         ".gitignore": true,
         ".travis.yml": true,

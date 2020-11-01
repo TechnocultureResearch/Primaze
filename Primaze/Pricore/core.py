@@ -1,5 +1,5 @@
 """Core Functions"""
-from . import log
+from Primaze.Pricore import log
 
 
 def init():

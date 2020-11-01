@@ -29,4 +29,4 @@ biopython
 mfeprimer-py3
 
 
-pyyaml
+pyyaml>=5.0
