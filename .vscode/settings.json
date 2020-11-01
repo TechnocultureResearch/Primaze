@@ -36,5 +36,8 @@
     "python.linting.lintOnSave": true,
     "python.linting.enabled": true,
     "cornflakes.linter.run": "onType",
-    "python.linting.flake8Enabled": false
+    "python.linting.flake8Enabled": false,
+    "files.associations": {
+        "*.pz": "yml"
+    }
 }

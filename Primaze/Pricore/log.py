@@ -7,7 +7,7 @@ from datetime import date, datetime, timedelta
 def init():
     logging.basicConfig(
         level=logging.DEBUG,  # DEBUG < INFO < WARNING < ERROR < CRITICAL
-        format='%(asctime)s [%(levelname)s]: %(filename)s:%(funcName)s() - %(message)s',
+        format='%(asctime)s [%(levelname)s]: %(filename)s(%(lineno)s):%(funcName)s() - %(message)s',
         datefmt='%I:%M%p',  # %d/%m/%Y
         handlers=[
             logging.FileHandler("log/debug.log"),

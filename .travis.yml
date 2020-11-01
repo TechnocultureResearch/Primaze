@@ -16,7 +16,6 @@ env:
   - CODACY_PROJECT_TOKEN=6ac17e7da7f34a1abecd0a55abd68388
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash) -f coverage.xml -F Pricore
   - bash <(curl -s https://codecov.io/bash) -f coverage.xml -F Primaze
   - bash <(curl -Ls https://coverage.codacy.com/get.sh) report
   # - codecov # submit coverage

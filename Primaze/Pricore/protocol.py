@@ -1,7 +1,7 @@
 import sys
 from yaml import load, dump, FullLoader
 from collections import namedtuple  
-from Pricore.procedure import Procedure
+from .procedure import Procedure
 from logging import info, fatal
 
 
@@ -25,10 +25,12 @@ class Protocol:
             exit(1)
 
     def __repr__(self):
-        pretty_code = "\n\n{0}\n=== {1} ===\n{0}\n\n".format(
-            '='*(len(self.name) + 8), self.name)
-        pretty_code += dump(self.parsed_protocol, default_flow_style=False)
-        return pretty_code
+        file_dump = dump(self.parsed_protocol, default_flow_style=False)
+        bar = "{}".format('='*(len(self.name) + 8))
+        title = "\n    {}    ".format(self.name)
+        return "\n{0}{1}\n{0}\n{2}{0}".format(bar, title, file_dump)
+    
+    execute = lambda self: self.procedure.run()
 
     @staticmethod
     def get_procedure_data(file_name):

@@ -1,6 +1,6 @@
 MAIN= ./main.py
 SHELL:= /bin/bash
-MODULES= Pricore Primaze
+MODULES= Primaze
 
 all:
 	python $(MAIN)
@@ -18,7 +18,7 @@ clean:
 type:
 	mypy $(MODULES) $(MAIN)
 
-lint: #type
+lint: type
 	pylint $(MODULES)
 
 

@@ -7,6 +7,13 @@
             "request": "launch",
             "program": "${workspaceFolder}/Sandbox.py",
             "console": "integratedTerminal"
+        },
+        {
+            "name": "script ",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/Primaze/Pricore/command.py",
+            "console": "integratedTerminal"
         }
     ]
 }
