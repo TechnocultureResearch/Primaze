@@ -1,5 +1,5 @@
 from logging import debug
-from Primaze.commandRegister import available_commands, register
+from Primaze.core.commandRegister import available_commands, register
 
 
 @register

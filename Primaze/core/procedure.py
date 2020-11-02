@@ -2,7 +2,7 @@ from logging import info, debug, fatal, error
 from collections import deque
 from termcolor import colored
 
-from Primaze.commandRegister import available_commands
+from Primaze.core.commandRegister import available_commands
 
 
 class Procedure:
