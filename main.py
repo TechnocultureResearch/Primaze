@@ -1,12 +1,12 @@
 #!venv/bin/python
-from logging import debug
-from Sandbox import main
 from Primaze.core import core
+from logging import show
+from Sandbox import main
 
 """main.py : Entry Point of the project"""
 core.init()
 
 
-debug('Entry point: main.py')
+show('Entry point: main.py')
 main()
-debug("End of main.py")
+show("End of main.py")

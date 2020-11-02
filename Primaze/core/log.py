@@ -1,12 +1,22 @@
 """Log Functions"""
 import logging
+from functools import partial, partialmethod
 from sys import stdout
 from datetime import date, datetime, timedelta
 
 
-def init():
+def addLogger(name, level):
+    exec("logging.{0} = {1}".format( name.upper(), level ))
+    eval("logging.addLevelName(logging.{0}, '{0}')".format( name.upper() ))
+    exec("logging.Logger.{0} = partialmethod(logging.Logger.log, logging.{1})".format( name.lower(), name.upper() ))
+    exec("logging.{0} = partial(logging.log, logging.{1})".format( name.lower(), name.upper() ))
+
+addLogger('show', 5)
+
+
+def init():    
     logging.basicConfig(
-        level=logging.DEBUG,  # DEBUG < INFO < WARNING < ERROR < CRITICAL
+        level=logging.SHOW,  # DEBUG < INFO < WARNING < ERROR < CRITICAL
         format='%(asctime)s [%(levelname)s]: %(filename)s(%(lineno)s):%(funcName)s() - %(message)s',
         datefmt='%I:%M%p',  # %d/%m/%Y
         handlers=[
@@ -16,8 +26,10 @@ def init():
     )
     logging.Formatter.converter = delhi
 
-    logging.debug('{}'.format('='*50))
+    # logging.show('skjdh')
+    logging.info('{}'.format('='*50))
     logging.critical('Log initiated: {}'.format(date.today()))
+    
 
 
 # Helpers
@@ -25,3 +37,5 @@ def delhi(sec, what):
     """sec and what is unused."""
     delhi_time = datetime.now() + timedelta(hours=5.5)
     return delhi_time.timetuple()
+
+

@@ -1,7 +1,5 @@
-# from collections import deque
-
-
 class Command():
+    func = None
     def __init__(self, func):
         self.func = func
     __repr__ = lambda self: "Command<{}>".format(str(self))
