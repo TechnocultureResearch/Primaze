@@ -1,11 +1,15 @@
 from logging import info, debug, fatal, error
+from collections import deque
 from termcolor import colored
 
-from Primaze.Pricore.command import CommandsDeque, available_commands
+from Primaze.commandRegister import available_commands
 
+
+# CommandsDeque
 
 class Procedure:
-    steps = CommandsDeque()
+    
+    steps = deque()
     command_not_found = []
     _steps_data = []
 
@@ -15,15 +19,14 @@ class Procedure:
         except KeyError as kErr:
             fatal(kErr)
             exit(1)
-        self.compile_procedure()
         debug(self)
 
-    def compile_procedure(self):
+    def compile(self):
         for _ in self._steps_data:
             if _ not in available_commands: 
                 self.command_not_found.append(_)
             else:
-                self.steps.append()
+                self.steps.append(_)
         err = len(self.command_not_found)
         if err:
             error("{} command{} from the procedure not found.".format(colored(err, 'red'), 's' if err > 1 else ''))

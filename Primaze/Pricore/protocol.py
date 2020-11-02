@@ -24,6 +24,7 @@ class Protocol:
             exit(1)
         debug(self)
         self.procedure = Procedure(self.parsed_protocol)
+        self.procedure.compile()
 
     def __repr__(self):
         file_dump = dump(self.parsed_protocol, default_flow_style=False)

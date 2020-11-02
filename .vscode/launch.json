@@ -5,7 +5,7 @@
             "name": "Python: Sandbox ",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/Sandbox.py",
+            "program": "${workspaceFolder}/main.py",
             "console": "integratedTerminal"
         },
         {

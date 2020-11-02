@@ -1,4 +1,5 @@
-from Primaze.Pricore.command import register
+from Primaze.commandRegister import register
+
 from logging import debug
 
 
