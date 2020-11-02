@@ -43,24 +43,17 @@ def test_commands_deque():
 
 
 
-def test_available_commands():
-    # assert type(command.available_commands) == type(deque())
-    i = len(command.available_commands)
-    command.available_commands.append(command.Command(func))
-    assert len(command.available_commands) == i + 1
+# def test_available_commands():
+#     # assert type(command.available_commands) == type(deque())
+#     i = len(command.available_commands)
+#     command.available_commands.append(command.Command(func))
+#     assert len(command.available_commands) == i + 1
 
-    # print(len(command.available_commands))
-    # print(i)
-
-
-def test_register():
-    i = len(command.available_commands)
-    assert command.register(func) == func
-    assert len(command.available_commands) == i + 1
+#     # print(len(command.available_commands))
+#     # print(i)
 
 
-if __name__=='__main__':
-    test_command_lambda()
-    test_command_function()
-    test_available_commands()
-    test_commands_deque()
+# if __name__=='__main__':
+#     test_command_lambda()
+#     test_command_function()
+#     test_commands_deque()

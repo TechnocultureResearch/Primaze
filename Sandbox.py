@@ -1,6 +1,6 @@
 #!venv/bin/python
 from logging import info, debug, critical, error
-from Primaze.Pricore.protocol import Protocol
+from Primaze.core.protocol import Protocol
 from Primaze.commands import fetch_genome, gc_check_template
 
 

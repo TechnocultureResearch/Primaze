@@ -5,10 +5,7 @@ from termcolor import colored
 from Primaze.commandRegister import available_commands
 
 
-# CommandsDeque
-
 class Procedure:
-    
     steps = deque()
     command_not_found = []
     _steps_data = []
@@ -33,6 +30,8 @@ class Procedure:
             error("{} command{} from the procedure not found.".format(colored(err, 'red'), 's' if err > 1 else ''))
             error(self)
             exit(1)
+        else:
+            debug("Compilation Successfull.")
 
     __repr__ = lambda self: " -> ".join(
         [colored(_, 'red' if _ in self.command_not_found else 'green') for _ in self._steps_data])

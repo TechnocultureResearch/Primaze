@@ -12,7 +12,7 @@
             "name": "script ",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/Primaze/Pricore/command.py",
+            "program": "${workspaceFolder}/Primaze/core/command.py",
             "console": "integratedTerminal"
         }
     ]

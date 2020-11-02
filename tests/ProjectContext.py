@@ -6,6 +6,6 @@ sys.path.insert(
 
 
 """ Imports needed by tests """
-from Primaze.Pricore import core, log
-from Primaze.Pricore import command, protocol, procedure
+from Primaze.core import core, log
+from Primaze.core import command, protocol, procedure
 from Primaze import commands

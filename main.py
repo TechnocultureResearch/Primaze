@@ -1,7 +1,7 @@
 #!venv/bin/python
 from logging import info, debug, critical
 from Sandbox import main
-from Primaze.Pricore import core
+from Primaze.core import core
 
 """main.py : Entry Point of the project"""
 core.init()
