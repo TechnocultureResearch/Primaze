@@ -15,14 +15,15 @@ class Protocol:
 
     def __init__(self, file_name):
         self.file_name = file_name
-        self.parsed_protocol = Protocol.parse_procedure_data(file_name)
         try:
+            self.parsed_protocol = Protocol.parse_procedure_data(file_name)
             self.name = self.parsed_protocol['name']        # MAGIC STRING
             self.specie = self.parsed_protocol['specie']    # MAGIC STRING
-        except KeyError as kErr:
-            fatal(kErr)
+        except (FileNotFoundError, KeyError) as err:
+            fatal(err)
             exit(1)
-        debug(self)
+        
+        # debug(self)
         self.procedure = Procedure(self.parsed_protocol)
 
     def __repr__(self):

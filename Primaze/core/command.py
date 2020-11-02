@@ -1,4 +1,4 @@
-from collections import deque
+# from collections import deque
 
 
 class Command():
@@ -10,6 +10,11 @@ class Command():
     # is_available = lambda self: self.name in available_commands
 
 
-class CommandsDeque(deque):
-    __init__ = lambda self, iterable=[]: deque.__init__(self, iterable) # , maxlen=100)
-    __contains__ = lambda self, name: any([name is str(c) for c in self])
+class CommandsDeque(list):
+    __init__ = lambda self, iterable=[]: list.__init__(self, iterable) # , maxlen=100)
+    __contains__ = lambda self, name: any([name == str(c) for c in self])
+    def find(self, name):
+        for item in self:
+            if str(item) == name:
+                # print(repr(item))
+                return item

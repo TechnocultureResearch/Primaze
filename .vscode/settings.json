@@ -26,7 +26,8 @@
         ".coverage": true,
         ".mypy_cache": true,
         "docs": true,
-        "coverage.xml": true
+        "coverage.xml": true,
+        ".VSCodeCounter": true
     },
     "editor.formatOnSave": true,
     "python.linting.pylintEnabled": true,

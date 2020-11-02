@@ -1,7 +1,0 @@
-name: Single Target PCR
-specie: Homeo Sapiens
-procedure:
- - fetch_genome
- - gc_check_template
- - check_length
- - check_tm

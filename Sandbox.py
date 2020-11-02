@@ -4,12 +4,11 @@ from Primaze import Protocol
 
 
 def main(): 
-    """Entry point of the program"""
-    try:
-        p = Protocol('data/procedure.pz')
-    except FileNotFoundError as fErr:
-        error(fErr)
-        exit(1)
+    """Entry point of the sandbox"""
+    debug("Entry Point: {}\n".format(__file__))
+
+    p = Protocol('data/procedure.yml')
     p.compile()
+    p.execute()
     
-    debug("End of Main.")
+    debug("End Point: {}\n".format(__file__))

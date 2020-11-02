@@ -6,6 +6,7 @@ from Primaze.core import core
 """main.py : Entry Point of the project"""
 core.init()
 
-debug('Entry point')
+
+debug('Entry point: main.py')
 main()
-debug("Program Ends Without a Crash.")
+debug("End of main.py")
