@@ -1,4 +1,4 @@
-from Primaze.core.command import CommandsDeque, Command
+from Primaze.core import Command, CommandsDeque
 from collections import deque
 
 # !

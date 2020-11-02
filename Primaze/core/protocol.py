@@ -3,7 +3,7 @@ from logging import info, debug, fatal
 from yaml import load, dump, FullLoader
 from collections import namedtuple  
 
-from Primaze.core.procedure import Procedure
+from Primaze.core import Procedure
 
 
 class Protocol:

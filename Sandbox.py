@@ -1,7 +1,6 @@
 #!venv/bin/python
 from logging import info, debug, critical, error
-from Primaze.core.protocol import Protocol
-from Primaze.commands import fetch_genome, gc_check_template
+from Primaze import Protocol
 
 
 def main(): 
@@ -13,4 +12,4 @@ def main():
         exit(1)
     p.compile()
     
-    info("Main")
+    debug("End of Main.")
