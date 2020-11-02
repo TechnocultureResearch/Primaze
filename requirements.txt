@@ -8,6 +8,7 @@ codecov
 mypy
 pylint
 # mkdocs
+pycycle
 
 
 # ...

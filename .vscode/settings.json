@@ -26,7 +26,6 @@
         ".coverage": true,
         ".mypy_cache": true,
         "docs": true,
-        // "main.py": true,
         "coverage.xml": true
     },
     "editor.formatOnSave": true,

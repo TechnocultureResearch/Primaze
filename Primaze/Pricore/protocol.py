@@ -24,7 +24,6 @@ class Protocol:
             exit(1)
         debug(self)
         self.procedure = Procedure(self.parsed_protocol)
-        self.procedure.compile()
 
     def __repr__(self):
         file_dump = dump(self.parsed_protocol, default_flow_style=False)
@@ -34,6 +33,7 @@ class Protocol:
     
     __len__ = lambda self: len(self.procedure)
     execute = lambda self: self.procedure.run()
+    compile = lambda self: self.procedure.compile()
 
     @staticmethod
     def parse_procedure_data(file_name):

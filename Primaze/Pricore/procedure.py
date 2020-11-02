@@ -22,8 +22,9 @@ class Procedure:
         debug(self)
 
     def compile(self):
+        debug(available_commands)
         for _ in self._steps_data:
-            if _ not in available_commands: 
+            if _ not in str(available_commands): 
                 self.command_not_found.append(_)
             else:
                 self.steps.append(_)
