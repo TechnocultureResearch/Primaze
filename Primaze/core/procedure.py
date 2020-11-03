@@ -50,7 +50,7 @@ class Procedure:
         if err:
             error("{} command{} from the procedure not found.".format(colored(err, 'red'), 's' if err > 1 else ''))
             error(self)
-            exit(1)
+            raise Exception("Compilation Failed Error")
         else:
             debug(self)
             info("Compilation Successfull.\n")

@@ -8,4 +8,3 @@ sys.path.insert(
 """ Imports needed by tests """
 from Primaze.core import core, log
 from Primaze.core import command, protocol, procedure
-from Primaze import commands

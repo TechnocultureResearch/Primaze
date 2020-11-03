@@ -29,17 +29,18 @@ def test_init():
 def test_compile():
     data = get_data()
     p = procedure.Procedure(data)
-    # p.compile()
-    print(len(p.command_not_found))
+    try:
+        p.compile()
+    except Exception as e:
+        assert str(e) == "Compilation Failed Error"
+        assert len(p.commands_not_found) == 2
 
 
 def test_repr():
     data = get_data()
 
     p = procedure.Procedure(data)
-    assert repr(p) == "{} -> {}".format(colored('STEP1', 'green'), colored('STEP2', 'green'))
-    # print("{} -> {}".format(colored('STEP1', 'green'), colored('STEP2', 'green')))
-    # print(repr(p))
+    assert repr(p) == "Compiled Procedure: \n{} -> {}\n".format(colored('STEP1', 'red'), colored('STEP2', 'red'))
 
 
 def test_len():
