@@ -28,7 +28,6 @@ def init():
     )
     logging.Formatter.converter = delhi
 
-    # logging.show('skjdh')
     logging.info('{}'.format('='*50))
     logging.critical('Log initiated: {}'.format(date.today()))
 
