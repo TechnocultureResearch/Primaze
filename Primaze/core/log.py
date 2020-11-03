@@ -13,6 +13,7 @@ def addLogger(name, level):
     exec("logging.{0} = partial(logging.log, logging.{1})".format( name.lower(), name.upper() ))
 
 addLogger('show', 5)
+addLogger('temp', 2)
 
 
 def init():

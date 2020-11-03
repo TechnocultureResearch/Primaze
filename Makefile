@@ -30,7 +30,7 @@ start:
 init: start
  	# sudo apt-get install gunicorn
 	-sudo apt install nginx supervisor
-	pip install -r requirements.txt
+	pip install -U -r requirements.txt
 	# sudo apt-get update
 
 install:

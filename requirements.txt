@@ -25,6 +25,7 @@ supervisor
 
 
 # primer
+pyGeno
 primer3-py
 biopython
 mfeprimer-py3
