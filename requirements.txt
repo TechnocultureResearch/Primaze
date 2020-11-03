@@ -8,8 +8,8 @@ codecov
 mypy
 pylint
 # mkdocs
-pycycle
-
+# pycycle
+python-decouple
 
 # ...
 dataclasses

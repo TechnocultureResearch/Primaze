@@ -2,6 +2,7 @@
 import logging
 from functools import partial, partialmethod
 from sys import stdout
+from decouple import config
 from datetime import date, datetime, timedelta
 
 
@@ -14,9 +15,10 @@ def addLogger(name, level):
 addLogger('show', 5)
 
 
-def init():    
+def init():
+    level = config('LOGLEVEL') if config('LOGLEVEL') is not None else logging.DEBUG
     logging.basicConfig(
-        level=logging.SHOW,  # DEBUG < INFO < WARNING < ERROR < CRITICAL
+        level=level, # DEBUG < INFO < WARNING < ERROR < CRITICAL
         format='%(asctime)s [%(levelname)s]: %(filename)s(%(lineno)s):%(funcName)s() - %(message)s',
         datefmt='%I:%M%p',  # %d/%m/%Y
         handlers=[
@@ -29,7 +31,6 @@ def init():
     # logging.show('skjdh')
     logging.info('{}'.format('='*50))
     logging.critical('Log initiated: {}'.format(date.today()))
-    
 
 
 # Helpers
@@ -37,5 +38,3 @@ def delhi(sec, what):
     """sec and what is unused."""
     delhi_time = datetime.now() + timedelta(hours=5.5)
     return delhi_time.timetuple()
-
-

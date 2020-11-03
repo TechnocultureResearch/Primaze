@@ -2,7 +2,7 @@ from logging import info, debug, fatal, error, warn
 from collections import deque
 from termcolor import colored
 
-from Primaze.core import available_commands, Command
+from Primaze.core import available_commands, Command, refresh_register
 
 
 class Procedure:
@@ -32,6 +32,7 @@ class Procedure:
 
 
     def compile(self):
+        refresh_register()
         debug("Available Commands: \n{}\n".format(available_commands))
         for _ in self._steps_data:
             # add to the steps title list

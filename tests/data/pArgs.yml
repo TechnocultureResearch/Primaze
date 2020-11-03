@@ -6,9 +6,7 @@ specie: Homeo Sapiens
 procedure:
   - snp_id: rs 3057
   - get_chromosome_location
-  - print_allele_frequency: # includes alt
-    - Asia
-    - South Asia
+  - print_allele_frequency
   - get_genome
   - validate_snp_region_on_target
   - select_target_region:
@@ -16,8 +14,4 @@ procedure:
       symmetric: true
   - generate_primer_pool:
       method: k-mer # or primer3
-  - filter_primer_pool:
-      - GC: 60
-      - del_g: 3.5
-      - free_energy: 4
-      - thermo: true
+  - filter_primer_pool
