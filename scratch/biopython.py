@@ -14,3 +14,5 @@ print(aligner.score(my_seq, my_seq.complement()))
 alignments = aligner.align(my_seq, my_seq.complement())
 for a in alignments:
     print(a)
+
+# ===
