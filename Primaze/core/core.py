@@ -6,5 +6,5 @@ def init():
     log.init()
 
 
-def timeit(f):
-    return f
+# def timeit(f):
+#     return f

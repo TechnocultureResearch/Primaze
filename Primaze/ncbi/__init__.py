@@ -1,1 +1,1 @@
-# from snp import *
+from .snp import get_snp_data, process_snp_data
