@@ -3,10 +3,11 @@ from decouple import config
 from time import process_time
 import xml.etree.ElementTree as ET
 from urllib.error import HTTPError
+from pprint import pprint
 
 Entrez.email = config('EMAIL')
 
-
+# @timeit
 def get_snp_data(snp_id):
     """ get a numeric id of the snp and return a parsed xml file """
     stime = process_time()
@@ -25,7 +26,7 @@ def get_snp_data(snp_id):
 
 def process_snp_data(parsed_data, name=""):
     """ get parsed xml data -> output a well defined dict with key snp info """
-    stime = process_time()
+    # stime = process_time()
     _snp_info = dict()
     _snp_info['id'] = parsed_data.find('SNP_ID').text
 
@@ -47,8 +48,6 @@ def process_snp_data(parsed_data, name=""):
 
     global_mafs = parsed_data.find('GLOBAL_MAFS')
     mafs = global_mafs.findall('MAF')
-
-    from pprint import pprint
 
     # pprint(mafs)
     # <MAF>
@@ -81,13 +80,16 @@ def process_snp_data(parsed_data, name=""):
 
     pprint(_snp_info)
 
-    etime = process_time()
-    print("SNP Data Processed in: {:.2}ms".format((etime - stime)*1000))
+    # etime = process_time()
+    # print("SNP Data Processed in: {:.2}ms".format((etime - stime)*1000))
 
     return _snp_info
 
 
 if __name__ == '__main__':
+    # stime = process_time()
     root = get_snp_data(3057)
-    # snp_info = process_snp_data(root, "Pitch Perception")
     snp_info = process_snp_data(root)
+    # etime = process_time()
+    # print("{}: {:.2}s".format(i, etime - stime))
+    # snp_info = process_snp_data(root, "Pitch Perception")
