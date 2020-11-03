@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<!-- saved from url=(0091)https://www.danielecook.com/a-function-for-retrieving-snp-data-from-entrez-using-biopython/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style class="darkreader darkreader--fallback" media="screen"></style><style class="darkreader darkreader--text" media="screen"></style><style class="darkreader darkreader--invert" media="screen">.jfk-bubble.gtx-bubble, .captcheck_answer_label > input + img, embed[type="application/pdf"] {
+    filter: invert(100%) hue-rotate(180deg) brightness(99%) grayscale(5%) !important;
+}</style><style class="darkreader darkreader--inline" media="screen">[data-darkreader-inline-bgcolor] {
+  background-color: var(--darkreader-inline-bgcolor) !important;
+}
+[data-darkreader-inline-bgimage] {
+  background-image: var(--darkreader-inline-bgimage) !important;
+}
+[data-darkreader-inline-border] {
+  border-color: var(--darkreader-inline-border) !important;
+}
+[data-darkreader-inline-border-bottom] {
+  border-bottom-color: var(--darkreader-inline-border-bottom) !important;
+}
+[data-darkreader-inline-border-left] {
+  border-left-color: var(--darkreader-inline-border-left) !important;
+}
+[data-darkreader-inline-border-right] {
+  border-right-color: var(--darkreader-inline-border-right) !important;
+}
+[data-darkreader-inline-border-top] {
+  border-top-color: var(--darkreader-inline-border-top) !important;
+}
+[data-darkreader-inline-boxshadow] {
+  box-shadow: var(--darkreader-inline-boxshadow) !important;
+}
+[data-darkreader-inline-color] {
+  color: var(--darkreader-inline-color) !important;
+}
+[data-darkreader-inline-fill] {
+  fill: var(--darkreader-inline-fill) !important;
+}
+[data-darkreader-inline-stroke] {
+  stroke: var(--darkreader-inline-stroke) !important;
+}
+[data-darkreader-inline-outline] {
+  outline-color: var(--darkreader-inline-outline) !important;
+}</style><style class="darkreader darkreader--variables" media="screen">:root {
+   --darkreader-neutral-background: #181a1b;
+   --darkreader-neutral-text: #e8e6e3;
+   --darkreader-selection-background: #0042b0;
+   --darkreader-selection-text: #faf8f4;
+}</style><style class="darkreader darkreader--user-agent" media="screen">html {
+    background-color: #030506 !important;
+}
+html, body, input, textarea, select, button {
+    background-color: #030506;
+}
+html, body, input, textarea, select, button {
+    border-color: #6f6657;
+    color: #faf8f4;
+}
+a {
+    color: #2892ff;
+}
+table {
+    border-color: #4b5356;
+}
+::placeholder {
+    color: #bab2a6;
+}
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+    background-color: #4b5200 !important;
+    color: #faf8f4 !important;
+}
+::-webkit-scrollbar {
+    background-color: #0d1011;
+    color: #b1a99d;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #393e42;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: #4e565b;
+}
+::-webkit-scrollbar-thumb:active {
+    background-color: #3c4346;
+}
+::-webkit-scrollbar-corner {
+    background-color: #030506;
+}
+* {
+    scrollbar-color: #0d1011 #393e42;
+}
+::selection {
+    background-color: #0042b0 !important;
+    color: #faf8f4 !important;
+}
+::-moz-selection {
+    background-color: #0042b0 !important;
+    color: #faf8f4 !important;
+}</style><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><style class="darkreader darkreader--sync" media="screen"></style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title>A function for retrieving SNP data from Entrez using BioPython - Daniel E. Cook</title>
+  <meta content="A function for retrieving SNP data from Entrez using BioPython - Daniel E. Cook" property="title">
+  <meta content="A function for retrieving SNP data from Entrez using BioPython - Daniel E. Cook" property="og:title">
+
+
+<meta property="og:description" content="Biopython is a great tool for interacting with biological databases. I use it to retrieve records from NCBI’s Entrez databases including Pubmed.
+Unfortunately – one notable database biopython has trouble working with is the SNP database. This is due to the Bio.Entrez parser being unable to handle the XML returned from this database. One solution is to use a built in Python XML parser, but I thought I’d try to come up with an easier solution.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.danielecook.com/a-function-for-retrieving-snp-data-from-entrez-using-biopython/">
+
+
+<meta property="article:published_time" content="2013-06-06T00:00:00+00:00">
+
+<meta property="article:modified_time" content="2013-06-06T00:00:00+00:00">
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.69.1">
+
+<style type="text/css">/*https://coolors.co/afd5aa-f0f2ef-a69f98-3d3d3d-8c6057*/
+:root {
+  --main-color: #309fff; 
+  --secondary-color: #ff622e;
+  --logo-text-color: #fff;
+  --body-text-color: #3d3d3d;
+  --heading-text-color: #383838;
+  --background-color: #fff;
+  --max-width: 850px;
+}</style><style class="darkreader darkreader--sync" media="screen"></style>
+<link href="./A function for retrieving SNP data from Entrez using BioPython - Daniel E. Cook_files/tachyons.min.min.css" integrity="" rel="stylesheet" media="screen"><style class="darkreader darkreader--sync" media="screen"></style>
+<link href="./A function for retrieving SNP data from Entrez using BioPython - Daniel E. Cook_files/styles.min.css" integrity="" rel="stylesheet" media="screen"><style class="darkreader darkreader--sync" media="screen"></style>
+
+
+<link rel="icon" href="https://www.danielecook.com/favicon.ico" type="image/x-icon">
+
+<link rel="alternate" type="application/rss+xml" href="https://www.danielecook.com/a-function-for-retrieving-snp-data-from-entrez-using-biopython/feed/index.xml" title="Daniel E. Cook">
+<style>#instantclick{position:fixed;top:0;left:0;width:100%;pointer-events:none;z-index:2147483647;transition:opacity .25s .1s}.instantclick-bar{background:#29d;width:100%;margin-left:-100%;height:2px;transition:all .25s}</style><style class="darkreader darkreader--sync" media="screen"></style><style type="text/css">
+button.btn[data-v-cef78672]{display:inline-block;font-weight:300;line-height:1.25;text-align:center;white-space:nowrap;vertical-align:middle;user-select:none;border:1px solid transparent;cursor:pointer;letter-spacing:1px;transition:all .15s ease
+}
+button.btn.btn-sm[data-v-cef78672]{padding:.4rem .8rem;font-size:.8rem;border-radius:.2rem
+}
+button.btn.btn-primary[data-v-cef78672]{color:#fff;background-color:#45C8F1;border-color:#45C8F1
+}
+button.btn.btn-outline-primary[data-v-cef78672]{color:#45C8F1;background-color:transparent;border-color:#45C8F1
+}
+button.btn.btn-danger[data-v-cef78672]{color:#fff;background-color:#FF4949;border-color:#FF4949
+}
+.text-muted[data-v-cef78672]{color:#8492A6
+}
+.text-center[data-v-cef78672]{text-align:center
+}
+.drop-down-enter[data-v-cef78672],.drop-down-leave-to[data-v-cef78672]{transform:translateX(0) translateY(-20px);transition-timing-function:cubic-bezier(0.74, 0.04, 0.26, 1.05);opacity:0
+}
+.drop-down-enter-active[data-v-cef78672],.drop-down-leave-active[data-v-cef78672]{transition:all .15s
+}
+.move-left-enter[data-v-cef78672],.move-left-leave-to[data-v-cef78672]{transform:translateY(0) translateX(-80px);transition-timing-function:cubic-bezier(0.74, 0.04, 0.26, 1.05);opacity:0
+}
+.move-left-enter-active[data-v-cef78672],.move-left-leave-active[data-v-cef78672]{transition:all .15s
+}
+.shake[data-v-cef78672]{animation:shake-data-v-cef78672 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;transform:translate3d(0, 0, 0)
+}
+@keyframes shake-data-v-cef78672{
+10%,90%{transform:translate3d(-1px, 0, 0)
+}
+20%,80%{transform:translate3d(2px, 0, 0)
+}
+30%,50%,70%{transform:translate3d(-4px, 0, 0)
+}
+40%,60%{transform:translate3d(4px, 0, 0)
+}
+}
+.pulse[data-v-cef78672]{animation:pulse-data-v-cef78672 2s ease infinite
+}
+@keyframes pulse-data-v-cef78672{
+0%{opacity:.7
+}
+50%{opacity:.4
+}
+100%{opacity:.7
+}
+}
+.flash-once[data-v-cef78672]{animation:flash-once 3.5s ease 1
+}
+@keyframes fade-up-data-v-cef78672{
+0%{transform:translate3d(0, 10px, 0);opacity:0
+}
+100%{transform:translate3d(0, 0, 0);opacity:1
+}
+}
+.fade-in[data-v-cef78672]{animation:fade-in-data-v-cef78672 .3s ease-in-out
+}
+@keyframes fade-in-data-v-cef78672{
+0%{opacity:0
+}
+100%{opacity:1
+}
+}
+.spin[data-v-cef78672]{animation-name:spin-data-v-cef78672;animation-duration:2000ms;animation-iteration-count:infinite;animation-timing-function:linear
+}
+@keyframes spin-data-v-cef78672{
+from{transform:rotate(0deg)
+}
+to{transform:rotate(360deg)
+}
+}
+.bounceIn[data-v-cef78672]{animation-name:bounceIn-data-v-cef78672;transform-origin:center bottom;animation-duration:1s;animation-fill-mode:both;animation-iteration-count:1
+}
+@keyframes bounceIn-data-v-cef78672{
+0%,20%,40%,60%,80%,100%{-webkit-transition-timing-function:cubic-bezier(0.215, 0.61, 0.355, 1);transition-timing-function:cubic-bezier(0.215, 0.61, 0.355, 1)
+}
+0%{opacity:1;-webkit-transform:scale3d(0.8, 0.8, 0.8);transform:scale3d(0.8, 0.8, 0.8)
+}
+20%{-webkit-transform:scale3d(1.1, 1.1, 1.1);transform:scale3d(1.1, 1.1, 1.1)
+}
+40%{-webkit-transform:scale3d(0.9, 0.9, 0.9);transform:scale3d(0.9, 0.9, 0.9)
+}
+60%{opacity:1;-webkit-transform:scale3d(1.03, 1.03, 1.03);transform:scale3d(1.03, 1.03, 1.03)
+}
+80%{-webkit-transform:scale3d(0.97, 0.97, 0.97);transform:scale3d(0.97, 0.97, 0.97)
+}
+100%{opacity:1;-webkit-transform:scale3d(1, 1, 1);transform:scale3d(1, 1, 1)
+}
+}
+@keyframes dots-data-v-cef78672{
+0%,20%{color:rgba(0,0,0,0);text-shadow:0.25em 0 0 rgba(0,0,0,0),0.5em 0 0 rgba(0,0,0,0)
+}
+40%{color:#8492A6;text-shadow:0.25em 0 0 rgba(0,0,0,0),0.5em 0 0 rgba(0,0,0,0)
+}
+60%{text-shadow:0.25em 0 0 #8492A6,0.5em 0 0 rgba(0,0,0,0)
+}
+80%,100%{text-shadow:.25em 0 0 #8492A6, .5em 0 0 #8492A6
+}
+}
+@keyframes recording-data-v-cef78672{
+0%{box-shadow:0px 0px 5px 0px rgba(173,0,0,0.3)
+}
+65%{box-shadow:0px 0px 5px 5px rgba(173,0,0,0.3)
+}
+90%{box-shadow:0px 0px 5px 5px rgba(173,0,0,0)
+}
+}
+html[data-v-cef78672]{max-height:500px
+}
+body[data-v-cef78672]{margin:0;font-size:100%;color:#3C4858;width:350px;max-height:500px
+}
+a[data-v-cef78672]{text-decoration:none;color:#45C8F1
+}
+h1[data-v-cef78672],h2[data-v-cef78672],h3[data-v-cef78672],h4[data-v-cef78672]{margin-top:0
+}
+.container_selected_area[data-v-cef78672]{padding:0px;position:fixed;z-index:1000000;top:0px;left:0px;right:0px;bottom:0px;display:none;visibility:hidden
+}
+.container_selected_area.active[data-v-cef78672]{visibility:visible;display:block
+}
+.container_selected_area .label[data-v-cef78672]{font-family:"Didact Gothic Regular",sans-serif;font-size:22px;text-align:center;padding-top:15px
+}
+.container_selected_area .area[data-v-cef78672]{border:1px solid #1e83ff;background:rgba(30,131,255,0.1);display:none;position:fixed;z-index:1000000;box-sizing:border-box
+}
+.container_selected_area .area.active[data-v-cef78672]{display:block;top:0px;left:0px
+}
+.hide[data-v-cef78672]{display:none
+}
+</style><style class="darkreader darkreader--sync" media="screen"></style><meta name="darkreader" content="5a13f02e0b65e66cc4a04d73619d9ea4"><style class="darkreader darkreader--override" media="screen">.vimvixen-hint {
+    background-color: #764900 !important;
+    border-color: #e4b706 !important;
+    color: #fffad6 !important;
+}
+::placeholder {
+    opacity: 0.5 !important;
+}</style></head>
+<body class="global-font">
+  <div id="nav" class="content-width center">
+<nav class="flex-ns justify-between border-box pa3 pl3-l pr2-l mt1 mt0-ns" id="navbar">
+  <div class="flex">
+    <a class="f4 fw6 ttu no-underline dim bg-main-color pv1 ph2 br2" id="site-title" href="https://www.danielecook.com/" title="Home"></a>
+  </div>
+  
+  <div class=" flex-ns mt2 mt0-ns pv1">
+    
+      <a class="link dim dark-gray f6 dib mr2 mr3-l ttu tracked" href="https://www.danielecook.com/about/" title="about">about</a>
+    
+      <a class="link dim dark-gray f6 dib mr2 mr3-l ttu tracked" href="https://www.danielecook.com/" title="blog">blog</a>
+    
+      <a class="link dim dark-gray f6 dib mr2 mr3-l ttu tracked" href="https://www.danielecook.com/photos/" title="photos">photos</a>
+    
+      <a class="link dim dark-gray f6 dib mr2 mr3-l ttu tracked" href="https://www.danielecook.com/projects/" title="projects">projects</a>
+    
+      <a class="link dim dark-gray f6 dib mr2 mr3-l ttu tracked" href="https://www.danielecook.com/contact/" title="contact">contact</a>
+    
+  </div>
+  
+</nav>
+</div>
+
+  
+<main class="center mv4 content-width ph3">
+  <div class="f2 fw6 heading-color heading-font post-title">A function for retrieving SNP data from Entrez using BioPython</div>
+  
+  <p class="silver f6 mt1 mb4 post-meta">
+    <time>2013-06-06</time> 
+     
+    
+    &nbsp;&nbsp;<a href="https://www.danielecook.com/tags/gist" class="link silver tag">gist</a> &nbsp;&nbsp; 
+    
+  </p>
+  
+  <div class="lh-copy post-content"><p><a href="http://biopython.org/">Biopython</a> is a great tool for interacting with biological databases. I use it to retrieve records from <a href="http://www.ncbi.nlm.nih.gov/About/tools/restable_mol.html">NCBI’s Entrez databases</a> including Pubmed.</p>
+<p>Unfortunately – one notable database biopython has trouble working with is the <a href="http://www.ncbi.nlm.nih.gov/snp">SNP</a> database. This is due to the <code>Bio.Entrez</code> parser being unable to handle the XML returned from this database. One solution is to use a built in Python XML parser, but I thought I’d try to come up with an easier solution.</p>
+<p>To solve this problem – I wrote a function for retrieving SNP data, and parsing it into an array.</p>
+<div class="highlight"><pre style="color: rgb(248, 248, 242); background-color: rgb(39, 40, 34); tab-size: 4; --darkreader-inline-color:#fafae5; --darkreader-inline-bgcolor:#080a0b;" data-darkreader-inline-color="" data-darkreader-inline-bgcolor=""><code class="language-python" data-lang="python"><span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">from</span> pprint <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">import</span> pprint <span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">as</span> pp
+<span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">from</span> Bio <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">import</span> Entrez
+
+Entrez<span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">.</span>email <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span> <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"YOUR@EMAIL.HERE"</span>
+
+<span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">def</span> <span style="color: rgb(166, 226, 46); --darkreader-inline-color:#b7f43b;" data-darkreader-inline-color="">pull_line</span>(var_set, line):
+    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"""
+</span><span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">    This function parses data from lines in one of three ways:
+</span><span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">    1.) Pulls variables out of a particular line when defined as "variablename=[value]" - uses a string to find the variable.
+</span><span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">    2.) Pulls variables based on a set position within a line [splits the line by '|']
+</span><span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">    3.) Defines variables that can be identified based on a limited possible set of values - [categorical variable, specified using an array]
+</span><span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">    """</span>
+    line_set <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span> {}
+    <span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">for</span> k,v <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">in</span> var_set<span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">.</span>items():
+        <span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">if</span> type(v) <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">==</span> str:
+            <span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">try</span>:
+                line_set[k] <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span> [x <span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">for</span> x <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">in</span> line <span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">if</span> x<span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">.</span>startswith(v)][<span style="color: rgb(174, 129, 255); --darkreader-inline-color:#aa72ff;" data-darkreader-inline-color="">0</span>]<span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">.</span>replace(v,<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">''</span>)
+            <span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">except</span>:
+                <span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">pass</span>
+        <span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">elif</span> type(v) <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">==</span> int:
+            <span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">try</span>:
+                line_set[k] <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span> line[v]
+            <span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">except</span>:
+                <span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">pass</span>
+        <span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">else</span>:
+            <span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">try</span>:
+                line_set[k] <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span> [x <span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">for</span> x <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">in</span> line <span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">if</span> x <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">in</span> v][<span style="color: rgb(174, 129, 255); --darkreader-inline-color:#aa72ff;" data-darkreader-inline-color="">0</span>]
+            <span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">except</span>:
+                <span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">pass</span>
+    <span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">return</span> line_set
+
+<span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">def</span> <span style="color: rgb(166, 226, 46); --darkreader-inline-color:#b7f43b;" data-darkreader-inline-color="">pull_vars</span>(var_set,line_start,line,multi<span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span>False):
+    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"""
+</span><span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">    Delegates and compiles data from entrez flat files dependent on whether
+</span><span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">    the type of data trying to be pulled is contained in unique vs. non-unique lines.
+</span><span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">    For example - the first line of the flat file is always something like this:
+</span><span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">    rs12009 | Homo Sapiens | 9606 | etc.
+</span><span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">    This line is unique (refers to RefSnp identifier)- and only occurs once in each flat file. On the other hand, lines
+</span><span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">    beginning with "ss[number]" refer to 'submitted snp' numbers and can appear multiple times.
+</span><span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">    """</span>
+    lineset <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span> [x<span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">.</span>split(<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">' | '</span>) <span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">for</span> x <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">in</span> line <span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">if</span> x<span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">.</span>startswith(line_start)]
+    <span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">if</span> len(lineset) <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">==</span> <span style="color: rgb(174, 129, 255); --darkreader-inline-color:#aa72ff;" data-darkreader-inline-color="">0</span>:
+        <span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">return</span> 
+    <span style="color: rgb(117, 113, 94); --darkreader-inline-color:#aaa295;" data-darkreader-inline-color=""># If the same line exists multiple times - place results into an array</span>
+    <span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">if</span> multi <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">==</span> True:
+        pulled_vars <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span> []
+        <span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">for</span> line <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">in</span> lineset:
+            <span style="color: rgb(117, 113, 94); --darkreader-inline-color:#aaa295;" data-darkreader-inline-color=""># Pull date in from line and append</span>
+            pulled_vars<span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">.</span>append(pull_line(var_set,line))
+        <span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">return</span> pulled_vars  
+    <span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">else</span>:
+    <span style="color: rgb(117, 113, 94); --darkreader-inline-color:#aaa295;" data-darkreader-inline-color=""># Else if the line is always unique, output single dictionary</span>
+        line <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span> lineset[<span style="color: rgb(174, 129, 255); --darkreader-inline-color:#aa72ff;" data-darkreader-inline-color="">0</span>]
+        pulled_vars <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span> {}
+        <span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">return</span> pull_line(var_set,line)
+
+<span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">def</span> <span style="color: rgb(166, 226, 46); --darkreader-inline-color:#b7f43b;" data-darkreader-inline-color="">get_snp</span>(q):
+    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">""" 
+</span><span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">    Takes as input an array of snp identifiers and returns 
+</span><span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">    a parsed dictionary of their data from Entrez.
+</span><span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">    """</span>
+    response <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span> Entrez<span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">.</span>efetch(db<span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span><span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'SNP'</span>, id<span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span><span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">','</span><span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">.</span>join(q), rettype<span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span><span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'flt'</span>, retmode<span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span><span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'flt'</span>)<span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">.</span>read()
+    r <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span> {} <span style="color: rgb(117, 113, 94); --darkreader-inline-color:#aaa295;" data-darkreader-inline-color=""># Return dictionary variable</span>
+    <span style="color: rgb(117, 113, 94); --darkreader-inline-color:#aaa295;" data-darkreader-inline-color=""># Parse flat file response</span>
+    <span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">for</span> snp_info <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">in</span> filter(None,response<span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">.</span>split(<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'</span><span style="color: rgb(174, 129, 255); --darkreader-inline-color:#aa72ff;" data-darkreader-inline-color="">\n\n</span><span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'</span>)):
+        <span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">print</span> snp_info
+        <span style="color: rgb(117, 113, 94); --darkreader-inline-color:#aaa295;" data-darkreader-inline-color=""># Parse the First Line. Details of rs flat files available here:</span>
+        <span style="color: rgb(117, 113, 94); --darkreader-inline-color:#aaa295;" data-darkreader-inline-color=""># ftp://ftp.ncbi.nlm.nih.gov/snp/specs/00readme.txt</span>
+        snp <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span> snp_info<span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">.</span>split(<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'</span><span style="color: rgb(174, 129, 255); --darkreader-inline-color:#aa72ff;" data-darkreader-inline-color="">\n</span><span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'</span>)
+        <span style="color: rgb(117, 113, 94); --darkreader-inline-color:#aaa295;" data-darkreader-inline-color=""># Parse the 'rs' line:</span>
+        rsId <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span> snp[<span style="color: rgb(174, 129, 255); --darkreader-inline-color:#aa72ff;" data-darkreader-inline-color="">0</span>]<span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">.</span>split(<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">" | "</span>)[<span style="color: rgb(174, 129, 255); --darkreader-inline-color:#aa72ff;" data-darkreader-inline-color="">0</span>]
+        r[rsId] <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span> {}
+
+        <span style="color: rgb(117, 113, 94); --darkreader-inline-color:#aaa295;" data-darkreader-inline-color=""># rs vars</span>
+        rs_vars <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span> {<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"organism"</span>:<span style="color: rgb(174, 129, 255); --darkreader-inline-color:#aa72ff;" data-darkreader-inline-color="">1</span>,
+                   <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"taxId"</span>:<span style="color: rgb(174, 129, 255); --darkreader-inline-color:#aa72ff;" data-darkreader-inline-color="">2</span>,
+                   <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"snpClass"</span>:<span style="color: rgb(174, 129, 255); --darkreader-inline-color:#aa72ff;" data-darkreader-inline-color="">3</span>,
+                   <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"genotype"</span>:<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"genotype="</span>,
+                   <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"rsLinkout"</span>:<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"submitterlink="</span>,
+                   <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"date"</span>:<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"updated "</span>}
+
+        <span style="color: rgb(117, 113, 94); --darkreader-inline-color:#aaa295;" data-darkreader-inline-color=""># rs vars</span>
+        ss_vars <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span> {<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"ssId"</span>:<span style="color: rgb(174, 129, 255); --darkreader-inline-color:#aa72ff;" data-darkreader-inline-color="">0</span>,
+                   <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"handle"</span>:<span style="color: rgb(174, 129, 255); --darkreader-inline-color:#aa72ff;" data-darkreader-inline-color="">1</span>,
+                   <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"locSnpId"</span>:<span style="color: rgb(174, 129, 255); --darkreader-inline-color:#aa72ff;" data-darkreader-inline-color="">2</span>,
+                   <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"orient"</span>:<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"orient="</span>,
+                   <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"exemplar"</span>:<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"ss_pick="</span>,
+                   }
+
+        <span style="color: rgb(117, 113, 94); --darkreader-inline-color:#aaa295;" data-darkreader-inline-color=""># SNP line variables:</span>
+        SNP_vars <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span> {<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"observed"</span>:<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"alleles="</span>,
+                    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"value"</span>:<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"het="</span>,
+                    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"stdError"</span>:<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"se(het)="</span>,
+                    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"validated"</span>:<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"validated="</span>,
+                    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"validProbMin"</span>:<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"min_prob="</span>,
+                    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"validProbMax"</span>:<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"max_prob="</span>,
+                    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"validation"</span>:<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"suspect="</span>,
+                    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"AlleleOrigin"</span>:[<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'unknown'</span>,
+                                    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'germline'</span>,
+                                    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'somatic'</span>,
+                                    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'inherited'</span>,
+                                    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'paternal'</span>,
+                                    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'maternal'</span>,
+                                    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'de-novo'</span>,
+                                    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'bipaternal'</span>,
+                                    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'unipaternal'</span>,
+                                    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'not-tested'</span>,
+                                    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'tested-inconclusive'</span>],
+                    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"snpType"</span>:[<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'notwithdrawn'</span>,
+                               <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'artifact'</span>,
+                               <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'gene-duplication'</span>,
+                               <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'duplicate-submission'</span>,
+                               <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'notspecified'</span>,
+                               <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'ambiguous-location;'</span>,
+                               <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'low-map-quality'</span>]}
+        
+        <span style="color: rgb(117, 113, 94); --darkreader-inline-color:#aaa295;" data-darkreader-inline-color=""># CLINSIG line variables:</span>
+        CLINSIG_vars <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span> {<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"ClinicalSignificance"</span>:[<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'probable-pathogenic'</span>,<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'pathogenic'</span>,<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'other'</span>]}
+
+        <span style="color: rgb(117, 113, 94); --darkreader-inline-color:#aaa295;" data-darkreader-inline-color=""># GMAF line variables</span>
+        GMAF_vars <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span> {<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"allele"</span>:<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"allele="</span>,
+                     <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"sampleSize"</span>:<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"count="</span>,
+                     <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"freq"</span>:<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"MAF="</span>}
+
+        <span style="color: rgb(117, 113, 94); --darkreader-inline-color:#aaa295;" data-darkreader-inline-color=""># CTG line variables</span>
+        CTG_vars <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span> {<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"groupLabel"</span>:<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"assembly="</span>,
+                    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"chromosome"</span>:<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"chr="</span>,
+                    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"physmapInt"</span>:<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"chr-pos="</span>,
+                    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"asnFrom"</span>:<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"ctg-start="</span>,
+                    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"asnTo"</span>:<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"ctg-end="</span>,
+                    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"loctype"</span>:<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"loctype="</span>,
+                    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"orient"</span>:<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"orient="</span>}
+
+        <span style="color: rgb(117, 113, 94); --darkreader-inline-color:#aaa295;" data-darkreader-inline-color=""># LOC line variables</span>
+        LOC_vars <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span> {<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"symbol"</span>:<span style="color: rgb(174, 129, 255); --darkreader-inline-color:#aa72ff;" data-darkreader-inline-color="">1</span>,
+                    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"geneId"</span>:<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"locus_id="</span>,
+                    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"fxnClass"</span>:<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"fxn-class="</span>,
+                    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"allele"</span>:<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"allele="</span>,
+                    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"readingFrame"</span>:<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"frame="</span>,
+                    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"residue"</span>:<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"residue="</span>,
+                    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"aaPosition"</span>:<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"aa_position="</span>}
+
+        <span style="color: rgb(117, 113, 94); --darkreader-inline-color:#aaa295;" data-darkreader-inline-color=""># LOC line variables</span>
+        SEQ_vars <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span> {<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"gi"</span>:<span style="color: rgb(174, 129, 255); --darkreader-inline-color:#aa72ff;" data-darkreader-inline-color="">1</span>,
+                    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"source"</span>:<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"source-db="</span>,
+                    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"asnFrom"</span>:<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"seq-pos="</span>,
+                    <span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"orient"</span>:<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"orient="</span>}
+
+        <span style="color: rgb(117, 113, 94); --darkreader-inline-color:#aaa295;" data-darkreader-inline-color=""># Pull out variable information:</span>
+        r[rsId][<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'rs'</span>]       <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span> pull_vars(rs_vars,<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"rs"</span>,snp)
+        r[rsId][<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'ss'</span>]       <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span> pull_vars(ss_vars,<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"ss"</span>,snp,True)
+        r[rsId][<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'SNP'</span>]      <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span> pull_vars(SNP_vars,<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"SNP"</span>,snp)
+        r[rsId][<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'CLINSIG'</span>]  <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span> pull_vars(CLINSIG_vars,<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"CLINSIG"</span>,snp)
+        r[rsId][<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'GMAF'</span>]     <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span> pull_vars(GMAF_vars,<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"GMAF"</span>,snp)
+        r[rsId][<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'CTG'</span>]      <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span> pull_vars(CTG_vars,<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"CTG"</span>,snp,True)
+        r[rsId][<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'LOC'</span>]      <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span> pull_vars(LOC_vars,<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"LOC"</span>,snp,True)
+        r[rsId][<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">'SEQ'</span>]      <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span> pull_vars(SEQ_vars,<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"SEQ"</span>,snp,True)
+    <span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">return</span> r
+        
+
+snp <span style="color: rgb(249, 38, 114); --darkreader-inline-color:#ff2878;" data-darkreader-inline-color="">=</span> get_snp([<span style="color: rgb(230, 219, 116); --darkreader-inline-color:#f7ea74;" data-darkreader-inline-color="">"12009"</span>])
+<span style="color: rgb(102, 217, 239); --darkreader-inline-color:#65e7ff;" data-darkreader-inline-color="">print</span> pp(snp)
+</code></pre></div></div>
+  
+        <div id="comments"><div class="utterances" style="height: 268px;">
+    <iframe class="utterances-frame" title="Comments" scrolling="no" src="./A function for retrieving SNP data from Entrez using BioPython - Daniel E. Cook_files/utterances.html"></iframe>
+  </div></div>
+  
+</main>
+
+   
+
+
+
+
+
+
+
+
+
+<div class="pagination tc tr-l db fixed-l bottom-2-l right-2-l mb3 mb0-l">
+  
+<a id="scroll-to-top" class="f6 o-0 link br2 ph2 pv1 mb1 bg-main-color pointer" onclick="topFunction()" style="color: rgb(255, 255, 255); visibility: visible; display: inline; transition: opacity 0.5s ease 0s, visibility 0.5s ease 0s; --darkreader-inline-color:#faf8f4; opacity: 1;" title="back to top" data-darkreader-inline-color="">back to top</a>
+<br>
+  <p class="mb0 mt2 next_prev">
+  ← <a href="https://www.danielecook.com/create-new-file-in-finder-with-alfred-2/">prev post</a>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="https://www.danielecook.com/accessing-the-ucsc-genome-browser-mysql-database/">next post</a> →
+  </p>
+</div>
+
+
+
+  <div class="cb"></div>
+<footer class="content-width mt3 mb4 f6 center ph3 gray tc tl-l">
+    <a href="http://creativecommons.org/licenses/by/3.0/deed.en_US" class="cc">CC</a>
+    <br><br>
+</footer>
+  
+
+
+
+
+
+
+<script async="" src="./A function for retrieving SNP data from Entrez using BioPython - Daniel E. Cook_files/analytics.js.download"></script><script type="text/javascript">
+var prevScrollpos = window.pageYOffset;
+window.onscroll = function() {
+  var currentScrollPos = window.pageYOffset;
+
+
+  
+  if (document.body.scrollTop > 1000 || document.documentElement.scrollTop > 1000) {
+      document.getElementById("scroll-to-top").style.display = "inline";
+      document.getElementById("scroll-to-top").style.visibility = "visible";
+      document.getElementById("scroll-to-top").style.opacity = "1";
+  } else {
+      document.getElementById("scroll-to-top").style.visibility = "hidden";
+      document.getElementById("scroll-to-top").style.opacity = "0";
+  }
+  
+  prevScrollpos = currentScrollPos;
+}
+
+
+function topFunction() {
+  document.body.scrollTop = 0; 
+  document.documentElement.scrollTop = 0; 
+}
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+  <script src="./A function for retrieving SNP data from Entrez using BioPython - Daniel E. Cook_files/instantclick.js.download" integrity="" data-no-instant=""></script>
+    <script data-no-instant="">
+
+    function utterances(index) {
+        var discussion = document.getElementById('comments');
+        if (!discussion) {
+            return;
+        }
+        var script = document.createElement('script');
+        script.src = 'https://utteranc.es/client.js';
+        script.setAttribute('repo', 'danielecook/danielecook.com');
+        script.setAttribute('issue-term', index);
+        script.setAttribute('theme', 'github-light');
+        script.setAttribute('crossorigin', 'anonymous');
+        discussion.appendChild(script);
+    }
+
+    InstantClick.on('change', function() {
+        utterances(location.pathname + location.search)
+    });
+
+
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-39176354-1', 'auto');
+
+        InstantClick.on('change', function() {
+            ga('send', 'pageview', location.pathname + location.search);
+      });
+       
+
+    InstantClick.init();
+    </script>
+
+<input type="file" id="" name="file" style="display: none;"><div data-v-cef78672="" class="container_selected_area" style="cursor: url(&quot;chrome-extension://ialiedlpfknneamnbemcgmaboleiccdd/assets/images/cursor-imagen.svg&quot;) 9 9, crosshair;"><div data-v-cef78672="" class="area"></div></div></body></html>
