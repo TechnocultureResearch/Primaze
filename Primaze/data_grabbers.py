@@ -1,5 +1,5 @@
 """ data grabbers """
-from logging import temp
+from logging import temp, debug
 from Primaze import register
 
 
@@ -15,7 +15,9 @@ def validate_snp_region_on_target():
 
 @register
 def snp_id():
-    temp("I did validate this snp region on the given target")
+    # temp("I did validate this snp region on the given target")
+    for key in kwargs:
+        debug(key)
 
 
 @register

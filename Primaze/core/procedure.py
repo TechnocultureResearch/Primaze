@@ -20,9 +20,12 @@ class Procedure:
     
 
     @staticmethod
-    def get_step_name(_): # debug(_)
+    def get_step_title(_): # debug(_)
         if type(_) == type('a'):
-            return _
+            if " - " in _: # lists in yaml
+                return _.split(" - ")[0]
+            else:
+                return _
         elif type(_) == type(dict()): # debug(type(_))
             title = list(_.keys())[0]
             return title
@@ -36,7 +39,7 @@ class Procedure:
         debug("Available Commands: \n{}\n".format(available_commands))
         for _ in self._steps_data:
             # add to the steps title list
-            fname = Procedure.get_step_name(_) # debug(fname)
+            fname = Procedure.get_step_title(_) # debug(fname)
             self._steps_title.append(fname)
 
             if fname in available_commands: 

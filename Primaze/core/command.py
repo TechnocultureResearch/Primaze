@@ -1,7 +1,9 @@
 class Command():
     func = None
-    def __init__(self, func):
+    def __init__(self, func, *args, **kwargs):
         self.func = func
+        # self.args = args
+        self.kwargs = kwargs
     __repr__ = lambda self: "Command<{}>".format(str(self))
     __str__ = lambda self: self.func.__name__
     __call__ = lambda self: self.func()
