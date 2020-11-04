@@ -23,7 +23,7 @@
         "Priserve": true,
         "htmlcov": true,
         ".pytest_cache": true,
-        ".coverage": true,
+        ".coverage*": true,
         ".mypy_cache": true,
         "docs": true,
         "coverage.xml": true,

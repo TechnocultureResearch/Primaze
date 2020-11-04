@@ -1,13 +1,40 @@
+""" Commands """
+
+
+pretty_argspec = lambda a: str(a).strip('[]').replace('\'', '').replace('\"','')
+
+
 class Command():
     func = None
-    def __init__(self, func, *args, **kwargs):
+    args = []
+    kwargs = {}
+    def __init__(self, func, argspec):
         self.func = func
-        # self.args = args
-        self.kwargs = kwargs
-    __repr__ = lambda self: "Command<{}>".format(str(self))
+        self.argspec = argspec
+    
+    def __repr__(self):
+        if self.argspec == ['']:
+            return "Command<{}>".format(str(self))
+        return "Command<{}({})>".format(str(self), pretty_argspec(self.argspec))
+    
     __str__ = lambda self: self.func.__name__
-    __call__ = lambda self: self.func()
-    # is_available = lambda self: self.name in available_commands
+    __call__ = lambda self: self.func(*self.args, *self.kwargs)
+
+    def validate(self, args, kwargs):
+        argspec = ','.join(self.argspec)
+        # print(args)
+        if '*' in argspec:
+            print("list expected: {}".format(self))
+            if args == []:
+                raise ValueError("List of arguments or atleast one argument expected.")
+                exit(1)
+        print(argspec)
+        print(args)
+        print(kwargs)
+    
+    def set_args(self, args, kwargs):
+        self.args = args
+        self.kwargs = kwargs
 
 
 class CommandsDeque(list):

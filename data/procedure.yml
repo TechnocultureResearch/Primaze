@@ -22,7 +22,7 @@ procedure:
   - generate_primer_pool:
       method: k-mer # or primer3
   - filter_primer_pool:
-      - GC: 60
-      - del_g: 3.5
-      - free_energy: 4
-      - thermo: true
+      GC: 60
+      del_g: 3.5
+      free_energy: 4
+      thermo: true

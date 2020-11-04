@@ -14,10 +14,8 @@ def validate_snp_region_on_target():
 
 
 @register
-def snp_id():
+def snp_id(*ids):
     temp("I did validate this snp region on the given target")
-    # for key in kwargs:
-    #     debug(key)
 
 
 @register
@@ -26,20 +24,20 @@ def get_chromosome_location():
 
 
 @register
-def print_allele_frequency():
+def print_allele_frequency(*selectors):
     temp("I did validate this snp region on the given target")
 
 
 @register
-def select_target_region():
+def select_target_region(width, symmetric=True):
     temp("I did validate this snp region on the given target")
 
 
 @register
-def generate_primer_pool():
+def generate_primer_pool(method="primer3"):
     temp("I did validate this snp region on the given target")
 
 
 @register
-def filter_primer_pool():
+def filter_primer_pool(GC, del_g, free_energy, thermo=False):
     temp("I did validate this snp region on the given target")
