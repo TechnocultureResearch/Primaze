@@ -15,9 +15,9 @@ def validate_snp_region_on_target():
 
 @register
 def snp_id():
-    # temp("I did validate this snp region on the given target")
-    for key in kwargs:
-        debug(key)
+    temp("I did validate this snp region on the given target")
+    # for key in kwargs:
+    #     debug(key)
 
 
 @register
