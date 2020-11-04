@@ -53,6 +53,7 @@ class Procedure:
     commands_not_found = []
     _steps_data = []
     _steps_title = []
+    _arg_fail = set()
 
     def __init__(self, _parsed_protocol):
         try:
@@ -64,6 +65,7 @@ class Procedure:
     def compile(self):
         refresh_register()
         debug("Available Commands: \n{}\n".format(available_commands))
+        
         for _ in self._steps_data:
             # add to the steps title list
             fname = get_step_title(_) # debug(fname)
@@ -75,7 +77,16 @@ class Procedure:
                 args = get_step_args(_)
                 kwargs = get_step_kwargs(_)
 
-                command.validate(args, kwargs)
+                # print(args)
+                # print(kwargs)
+                try:
+                    command.validate(args, kwargs)
+                except ValueError as vErr:
+                    self._arg_fail.add(fname)
+                    error("{}: {}".format(command, vErr))
+                except TypeError as tErr:
+                    self._arg_fail.add(fname)
+                    error("{}: Attribute(s) Missing: {}".format(command, tErr))
                 command.set_args(args, kwargs)
 
                 self.steps.append(command)
@@ -85,16 +96,26 @@ class Procedure:
                 self.commands_not_found.append(fname)
             
         err = len(self.commands_not_found)
+        aerr = len(self._arg_fail)
         if err:
             error("{} command{} from the procedure not found.".format(colored(err, 'red'), 's' if err > 1 else ''))
+        if aerr:
+            error("{} command{} had an argument mismatch.".format(colored(aerr, 'yellow'), 's' if aerr > 1 else ''))
+        if err + aerr:
             error(self)
+            error(self._arg_fail)
             raise Exception("Compilation Failed Error")
-        else:
-            debug(self)
-            info("Compilation Successfull.\n")
+            exit(1)
+        
+        debug(self)
+        info("Compilation Successfull.\n")
 
 
     def __repr__(self):
-        return "Compiled Procedure: \n" + " -> ".join([colored(_, 'red' if _ in self.commands_not_found else 'green') for _ in self._steps_title]) + "\n"
+        # print(self._arg_fail)
+        return "Compiled Procedure: \n" + " -> ".join(
+            [colored(_, 'red' if _ in self.commands_not_found else 'yellow' if _ in list(self._arg_fail) else 'green') 
+            for _ in self._steps_title]) + "\n"
+
     __len__ = lambda self: len(self._steps_data)
     run = lambda self: [_() for _ in self.steps]

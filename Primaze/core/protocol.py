@@ -1,5 +1,5 @@
 import sys
-from logging import info, debug, fatal
+from logging import error, info, debug, fatal
 from yaml import load, dump, FullLoader
 from collections import namedtuple  
 
@@ -34,7 +34,12 @@ class Protocol:
     
     __len__ = lambda self: len(self.procedure)
     execute = lambda self: self.procedure.run()
-    compile = lambda self: self.procedure.compile()
+    def compile(self):
+        try:
+            self.procedure.compile()
+        except Exception as e:
+            error("Compilation Failed.")
+            exit(1)
 
     @staticmethod
     def parse_procedure_data(file_name):

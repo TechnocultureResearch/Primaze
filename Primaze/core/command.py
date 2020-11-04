@@ -22,15 +22,44 @@ class Command():
 
     def validate(self, args, kwargs):
         argspec = ','.join(self.argspec)
-        # print(args)
+        # print(argspec)
+
+        if argspec is '':
+            return
+
         if '*' in argspec:
-            print("list expected: {}".format(self))
+            # print("list expected: {}".format(self))
+            if type(args) != type([]):
+                raise ValueError("List of arguments expected.")
             if args == []:
-                raise ValueError("List of arguments or atleast one argument expected.")
+                raise ValueError("List with atleast one argument expected.")
                 exit(1)
-        print(argspec)
-        print(args)
-        print(kwargs)
+            return # if args present, kargs not expected
+        else:
+            if type(kwargs) != type({}):
+                raise ValueError("Dictionary of arguments expected.")
+            if kwargs == {}:
+                raise ValueError("Non Empty Dictionary expected.")
+            # Match keyword arguments by name:
+            # print(self.kwargs)
+            
+            missing_kargs = []
+            for karg in self.argspec:
+                karg = karg.split('=')[0]
+                # print("{} : {}".format(karg, karg in kwargs.keys()))
+                if karg not in kwargs.keys():
+                    missing_kargs.append(karg)
+            # for key in kwargs.keys():
+            #     print("{} : {}".format(key, key in self.argspec))
+        
+            if missing_kargs:
+                raise TypeError(missing_kargs)
+            return
+        
+        raise NotImplementedError
+        # print(argspec)
+        # print(args)
+        # print(kwargs)
     
     def set_args(self, args, kwargs):
         self.args = args
