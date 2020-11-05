@@ -29,6 +29,7 @@ pyGeno
 primer3-py
 biopython
 mfeprimer-py3
+pyensembl
 
 
 pyyaml>=5.0
