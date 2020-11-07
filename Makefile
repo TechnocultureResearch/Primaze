@@ -24,12 +24,11 @@ lint: type
 
 # =================================================================
 start:
-	-source $(PWD)/.bashrc
-	-source $(PWD)/venv/bin/activate
+	source $(PWD)/.bashrc
+	source $(PWD)/venv/bin/activate
 
 init: start
- 	# sudo apt-get install gunicorn
-	-sudo apt install nginx supervisor
+	sudo apt install python3-pip
 	pip install -U -r requirements.txt
 	# sudo apt-get update
 
