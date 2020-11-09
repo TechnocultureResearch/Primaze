@@ -7,7 +7,7 @@ print(my_seq.complement())
 print(my_seq.reverse_complement())
 
 aligner = Align.PairwiseAligner(match_score=1.0)
-aligner.mode = 'local'
+aligner.mode = "local"
 print(aligner.score(my_seq, my_seq.complement()))
 
 

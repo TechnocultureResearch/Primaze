@@ -1,7 +1,6 @@
 from logging import debug
 
 
-
 def gc():
     debug("filter based on gc")
 

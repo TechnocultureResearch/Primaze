@@ -1,4 +1,6 @@
 #!venv/bin/python
+
+# Sequence of imports matter
 from Primaze.core import core
 from logging import show
 from Sandbox import main
@@ -7,6 +9,6 @@ from Sandbox import main
 core.init()
 
 
-show('Entry point: main.py')
+show("Entry point: main.py")
 main()
 show("End of main.py")

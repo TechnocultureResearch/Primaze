@@ -6,6 +6,7 @@ pytest-cov
 coverage
 codecov
 mypy
+MonkeyType
 pylint
 # mkdocs
 # pycycle

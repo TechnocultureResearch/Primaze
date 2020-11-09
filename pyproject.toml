@@ -1,0 +1,12 @@
+[tool.pytest.ini_options]
+addopts = "--cov-report xml --cov=Primaze"
+
+
+[mypy]
+python_version = "3.7"
+warn_return_any = "True"
+warn_unused_configs = "True"
+
+
+[tool.black]
+tab-size = "2"

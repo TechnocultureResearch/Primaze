@@ -8,25 +8,24 @@
     "python.testing.pytestEnabled": true,
     // exclude files
     "files.exclude": {
-        "LICENSE": true,
-        "venv": true,
-        ".pypirc": true,
-        "**/*.pyc": true,
-        "**/__pycache__": true,
-        "README.md": true,
-        ".travis.yml": true,
-        ".bashrc": true,
-        "setup.py": true,
-        "setup.cfg": true,
-        "scripts": true,
-        "Priserve": true,
-        "htmlcov": true,
-        ".pytest_cache": true,
-        ".coverage*": true,
-        ".mypy_cache": true,
-        "docs": true,
-        "coverage.xml": true,
-        ".VSCodeCounter": true
+        "LICENSE": false,
+        "venv": false,
+        ".pypirc": false,
+        "**/*.pyc": false,
+        "**/__pycache__": false,
+        "README.md": false,
+        ".travis.yml": false,
+        ".bashrc": false,
+        "setup.py": false,
+        "setup.cfg": false,
+        "Priserve": false,
+        "htmlcov": false,
+        ".pytest_cache": false,
+        ".coverage*": false,
+        ".mypy_cache": false,
+        "docs": false,
+        "coverage.xml": false,
+        ".VSCodeCounter": false
     },
     "editor.formatOnSave": true,
     "python.linting.pylintEnabled": true,
@@ -41,5 +40,7 @@
     "python.linting.pylintArgs": [
         "--extension-pkg-whitelist=logging"
     ],
-    "python.pythonPath": "venv/bin/python"
+    "python.pythonPath": "venv/bin/python",
+    "lldb.showDisassembly": "auto",
+    "lldb.dereferencePointers": true
 }

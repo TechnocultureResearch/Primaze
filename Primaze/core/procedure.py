@@ -14,11 +14,12 @@ def has_params(_):
 
 
 def is_a_string(_):
-    return type(_) == type('a')
+    return type(_) == type("a")
 
 
 def parse_list(_):
     return _.split(" - ")
+
 
 def extract_dict_title(_):
     return list(_.keys())[0]
@@ -57,7 +58,7 @@ class Procedure:
 
     def __init__(self, _parsed_protocol):
         try:
-            self._steps_data = _parsed_protocol['procedure'] # MAGIC STRING
+            self._steps_data = _parsed_protocol["procedure"]  # MAGIC STRING
         except KeyError as kErr:
             fatal(kErr)
             exit(1)
@@ -65,13 +66,13 @@ class Procedure:
     def compile(self):
         refresh_register()
         debug("Available Commands: \n{}\n".format(available_commands))
-        
+
         for _ in self._steps_data:
             # add to the steps title list
-            fname = get_step_title(_) # debug(fname)
+            fname = get_step_title(_)  # debug(fname)
             self._steps_title.append(fname)
 
-            if fname in available_commands: 
+            if fname in available_commands:
                 command = available_commands.find(fname)
 
                 args = get_step_args(_)
@@ -94,28 +95,49 @@ class Procedure:
             else:
                 fatal(fname)
                 self.commands_not_found.append(fname)
-            
+
         err = len(self.commands_not_found)
         aerr = len(self._arg_fail)
         if err:
-            error("{} command{} from the procedure not found.".format(colored(err, 'red'), 's' if err > 1 else ''))
+            error(
+                "{} command{} from the procedure not found.".format(
+                    colored(err, "red"), "s" if err > 1 else ""
+                )
+            )
         if aerr:
-            error("{} command{} had an argument mismatch.".format(colored(aerr, 'yellow'), 's' if aerr > 1 else ''))
+            error(
+                "{} command{} had an argument mismatch.".format(
+                    colored(aerr, "yellow"), "s" if aerr > 1 else ""
+                )
+            )
         if err + aerr:
             error(self)
             error(self._arg_fail)
             raise Exception("Compilation Failed Error")
             exit(1)
-        
+
         debug(self)
         info("Compilation Successfull.\n")
 
-
     def __repr__(self):
         # print(self._arg_fail)
-        return "Compiled Procedure: \n" + " -> ".join(
-            [colored(_, 'red' if _ in self.commands_not_found else 'yellow' if _ in list(self._arg_fail) else 'green') 
-            for _ in self._steps_title]) + "\n"
+        return (
+            "Compiled Procedure: \n"
+            + " -> ".join(
+                [
+                    colored(
+                        _,
+                        "red"
+                        if _ in self.commands_not_found
+                        else "yellow"
+                        if _ in list(self._arg_fail)
+                        else "green",
+                    )
+                    for _ in self._steps_title
+                ]
+            )
+            + "\n"
+        )
 
     __len__ = lambda self: len(self._steps_data)
     run = lambda self: [_() for _ in self.steps]

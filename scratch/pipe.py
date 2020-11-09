@@ -1,6 +1,6 @@
 class Primer:
-    seq=''
-    len=0
+    seq = ""
+    len = 0
 
     def __init__(self, seq):
         self.seq = seq
@@ -12,14 +12,14 @@ class Primer:
 
     def __repr__(self):
         return "[Sequence: {}; len: {}]".format(self.seq, self.len)
-    
+
     def __getitem__(self, item):
         return self.seq[item]
 
 
 primers = list()
-primers.append(Primer('HAGFSH'))
-primers.append(Primer('JJAGHSJGHSA'))
+primers.append(Primer("HAGFSH"))
+primers.append(Primer("JJAGHSJGHSA"))
 
 
 # def procedure(f):
@@ -35,4 +35,3 @@ primers.append(Primer('JJAGHSJGHSA'))
 
 # procedure = [filter, visualize]
 # [f(primers) for f in procedure]
-

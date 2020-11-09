@@ -42,7 +42,6 @@
 #     assert str(c.pop()) == 'func'
 
 
-
 # # def test_available_commands():
 # #     # assert type(command.available_commands) == type(deque())
 # #     i = len(command.available_commands)
