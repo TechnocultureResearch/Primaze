@@ -40,5 +40,6 @@
     },
     "python.linting.pylintArgs": [
         "--extension-pkg-whitelist=logging"
-    ]
+    ],
+    "python.pythonPath": "venv/bin/python"
 }

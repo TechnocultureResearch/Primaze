@@ -24,7 +24,7 @@ class Command():
         argspec = ','.join(self.argspec)
         # print(argspec)
 
-        if argspec is '':
+        if argspec == '':
             return
 
         if '*' in argspec:
