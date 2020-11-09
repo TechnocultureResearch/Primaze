@@ -1,5 +1,5 @@
 #!venv/bin/python
-from logging import debug, show
+from logging import debug, show  # type: ignore
 from Primaze import Protocol
 
 # from Primaze.ncbi import SNP

@@ -1,13 +1,14 @@
 """ Commands """
+from typing import List, Set, Dict, Tuple, Optional, Callable, Any
 
 
 pretty_argspec = lambda a: str(a).strip("[]").replace("'", "").replace('"', "")
 
 
 class Command:
-    func = None
-    args = []
-    kwargs = {}
+    func: Callable[[Any], Any]
+    args: List[str] = []
+    kwargs: Dict[str, str] = {}
 
     def __init__(self, func, argspec):
         self.func = func
@@ -18,8 +19,10 @@ class Command:
             return "Command<{}>".format(str(self))
         return "Command<{}({})>".format(str(self), pretty_argspec(self.argspec))
 
-    __str__ = lambda self: self.func.__name__
     __call__ = lambda self: self.func(*self.args, *self.kwargs)
+
+    def __str__(self):
+        return self.func.__name__
 
     def validate(self, args, kwargs):
         argspec = ",".join(self.argspec)

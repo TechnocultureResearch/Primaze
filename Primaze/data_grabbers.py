@@ -1,5 +1,5 @@
 """ data grabbers """
-from logging import temp, debug
+from logging import temp, debug  # type: ignore
 from Primaze import register
 
 

@@ -1,5 +1,6 @@
 import sys
 from logging import error, info, debug, fatal
+from typing import List, Set, Dict, Tuple, Optional, Callable, Deque
 from yaml import load, dump, FullLoader
 from collections import namedtuple
 
@@ -8,7 +9,7 @@ from Primaze.core import Procedure
 
 class Protocol:
     file_name = ""
-    parsed_protocol = []
+    parsed_protocol: List[str] = []
     name = ""
     specie = ""
     procedure = None

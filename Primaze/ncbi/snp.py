@@ -1,10 +1,10 @@
-from Bio import Entrez
-from decouple import config
+from Bio import Entrez  # type: ignore
+from decouple import config  # type: ignore
 from time import process_time
 import xml.etree.ElementTree as ET
 from urllib.error import HTTPError
 from pprint import pprint
-from logging import debug, show, temp, error
+from logging import debug, show, temp, error  # type: ignore
 
 
 Entrez.email = config("EMAIL")

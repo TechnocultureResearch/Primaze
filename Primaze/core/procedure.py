@@ -1,4 +1,5 @@
-from logging import info, debug, fatal, error, temp
+from logging import info, debug, fatal, error, temp  # type: ignore
+from typing import List, Set, Dict, Tuple, Optional, Callable, Deque
 from collections import deque
 from termcolor import colored
 
@@ -50,11 +51,12 @@ def get_step_kwargs(_):
 
 
 class Procedure:
-    steps = deque()
-    commands_not_found = []
-    _steps_data = []
-    _steps_title = []
-    _arg_fail = set()
+    steps: Deque[str] = deque()
+    commands_not_found: List[str] = list()
+
+    _steps_data: List[str] = list()
+    _steps_title: List[str] = list()
+    _arg_fail: Set[str] = set()
 
     def __init__(self, _parsed_protocol):
         try:

@@ -2,7 +2,7 @@
 import logging
 from functools import partial, partialmethod
 from sys import stdout
-from decouple import config
+from decouple import config  # type: ignore
 from datetime import date, datetime, timedelta
 
 

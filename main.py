@@ -2,7 +2,7 @@
 
 # Sequence of imports matter
 from Primaze.core import core
-from logging import show
+from logging import show  # type: ignore
 from Sandbox import main
 
 """main.py : Entry Point of the project"""

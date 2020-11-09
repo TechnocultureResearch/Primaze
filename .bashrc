@@ -10,6 +10,7 @@ python --version
 alias init="make init"
 alias test="make test"
 alias lint="make lint"
+alias type="make type"
 alias clean="make clean"
 echo "(available commands: make, init, test, lint, clean)"
 
