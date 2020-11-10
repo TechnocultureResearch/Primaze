@@ -90,9 +90,8 @@ def download_file_from_ftp(
             total = ftp.size(file_name)  # print(size(total))
             with tqdm(
                 total=total,
-                unit_scale=True,
-                # miniters=1,
-                leave=True,
+                # unit_scale=True,
+                # leave=True,
             ) as pbar:
 
                 def cb(data):
@@ -123,10 +122,12 @@ def download(urls: List[str]) -> None:
         try:
             if file_name in listdir(data_folder):
                 print("Already exists")
+                # TODO: checksum verification
                 break
             else:
                 download_file_from_ftp(_ftp_url, data_folder, dir, file_name)
-                print("Checking Checksum...")
+                # TODO: checksum verification
+                # print("Checking Checksum...")
         except (error_temp, error_reply) as e:
             print(e)
             exit(1)
@@ -140,8 +141,26 @@ chromosomes_urls = list(
 download(chromosomes_urls)
 
 
-# TODO: checksum verification
-# TODO: check if all chromosomes are present
-# TODO: unzip chromosome files
-# TODO: check snp location
-# TODO: get neighbouring region
+def all_chromosomes_present():
+    # TODO: check if all chromosomes are present
+    pass
+
+
+def read_fasta(ch_num: int):  # Use context manager
+    # TODO: unzip chromosome files
+    pass
+
+
+def fasta_value_at_loaction(ch_num: int, index: int) -> str:
+    pass
+
+
+def check_value_at_location(ch_num: int, index: int, value: str) -> bool:
+    # fasta_value_at_loaction()
+    # TODO: check snp location
+    pass
+
+
+def get_neighbors(ch_num: int, index: int, range: int) -> List[str]:
+    # TODO: get neighbouring region
+    pass
