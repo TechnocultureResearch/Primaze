@@ -1,10 +1,10 @@
-from Bio import Entrez  # type: ignore
+from logging import debug, show, temp, error  # type: ignore
 from decouple import config  # type: ignore
 from time import process_time
-import xml.etree.ElementTree as ET
+
 from urllib.error import HTTPError
-from pprint import pprint
-from logging import debug, show, temp, error  # type: ignore
+import xml.etree.ElementTree as ET
+from Bio import Entrez  # type: ignore
 
 
 Entrez.email = config("EMAIL")
@@ -36,8 +36,7 @@ class SNP:
         etime = process_time()
         show("SNP Data Downloaded in: {:.2}ms".format((etime - stime) * 1000))
 
-        self.raw_data = ET.fromstring(response)
-        # print(self.raw_data)
+        self.raw_data = ET.fromstring(response)  # print(self.raw_data)
         return self.raw_data
 
     def process_snp_data(self):

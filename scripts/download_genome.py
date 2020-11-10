@@ -1,14 +1,13 @@
 #!../venv/bin/python
 from typing import List, Set, Dict, Tuple, Optional, Callable
+from os import listdir
+from decouple import config
+
 import requests
 from html.parser import HTMLParser
 from ftplib import FTP, error_temp, error_reply
 from tqdm import tqdm
-from collections import namedtuple
 from hurry.filesize import size
-from os import listdir
-from os.path import isfile, join
-from decouple import config
 
 
 class NcbiFtpHTMLParser(HTMLParser):
@@ -88,11 +87,7 @@ def download_file_from_ftp(
         with open(data_folder + file_name, "wb") as d:
             ftp.voidcmd("TYPE I")
             total = ftp.size(file_name)  # print(size(total))
-            with tqdm(
-                total=total,
-                # unit_scale=True,
-                # leave=True,
-            ) as pbar:
+            with tqdm(total=total) as pbar:
 
                 def cb(data):
                     pbar.update(len(data))
@@ -101,36 +96,39 @@ def download_file_from_ftp(
                 ftp.retrbinary("RETR {}".format(file_name), cb)
 
 
-print_download_title = lambda i, urls, file_name: print(
-    "{}/{} [{:.0f}%]: {}".format(i + 1, len(urls), (i + 1) / len(urls) * 100, file_name)
+print_download_title = lambda i, count, file_name: print(
+    "{}/{} [{:.0f}%]: {}".format(i + 1, count, (i + 1) / count * 100, file_name)
 )
+
+
+def manage_download_from_ftp(url: str, ftp_url: str, index: int, count: int) -> None:
+    (dir, file_name, chnum) = ftp_url_split(url)
+
+    data_folder = config("GENOME_DATA_FOLDER")
+    assert data_folder is not None
+
+    print_download_title(index, count, file_name)
+
+    try:
+        if file_name in listdir(data_folder):
+            print("Already exists")
+            # TODO: checksum verification
+            return
+        else:
+            download_file_from_ftp(ftp_url, data_folder, dir, file_name)
+            # TODO: checksum verification
+            # print("Checking Checksum...")
+    except (error_temp, error_reply) as e:
+        print(e)
+        exit(1)
 
 
 def download(urls: List[str]) -> None:
     assert isinstance(urls, list)  # print(urls)
 
     _ftp_url = ftp_url(urls)  # print(_ftp_url)
-
     for i, url in enumerate(urls):
-        (dir, file_name, chnum) = ftp_url_split(url)
-
-        data_folder = config("DATA_FOLDER")
-        assert data_folder is not None
-        # assert
-
-        print_download_title(i, urls, file_name)
-        try:
-            if file_name in listdir(data_folder):
-                print("Already exists")
-                # TODO: checksum verification
-                break
-            else:
-                download_file_from_ftp(_ftp_url, data_folder, dir, file_name)
-                # TODO: checksum verification
-                # print("Checking Checksum...")
-        except (error_temp, error_reply) as e:
-            print(e)
-            exit(1)
+        manage_download_from_ftp(url, _ftp_url, i, len(urls))
 
 
 chromosomes_urls = list(
@@ -143,24 +141,4 @@ download(chromosomes_urls)
 
 def all_chromosomes_present():
     # TODO: check if all chromosomes are present
-    pass
-
-
-def read_fasta(ch_num: int):  # Use context manager
-    # TODO: unzip chromosome files
-    pass
-
-
-def fasta_value_at_loaction(ch_num: int, index: int) -> str:
-    pass
-
-
-def check_value_at_location(ch_num: int, index: int, value: str) -> bool:
-    # fasta_value_at_loaction()
-    # TODO: check snp location
-    pass
-
-
-def get_neighbors(ch_num: int, index: int, range: int) -> List[str]:
-    # TODO: get neighbouring region
     pass

@@ -1,10 +1,24 @@
-# from pyensembl import EnsemblRelease
+#!./venv/bin/python
+from typing import List, Set, Dict, Tuple, Optional, Callable
+from decouple import config  # type: ignore
+from os import listdir
 
-# # release 77 uses human reference genome GRCh38
-# data = EnsemblRelease(77)
 
-# # will return ['HLA-A']
-# gene_names = data.gene_names_at_locus(contig=6, position=29945884)
+def read_fasta(ch_num: int):  # Use context manager
+    # TODO: unzip chromosome files
+    pass
 
-# # get all exons associated with HLA-A
-# exon_ids = data.exon_ids_of_gene_name("HLA-A")
+
+def fasta_value_at_loaction(ch_num: int, index: int) -> str:
+    pass
+
+
+def check_value_at_location(ch_num: int, index: int, value: str) -> bool:
+    # fasta_value_at_loaction()
+    # TODO: check snp location
+    pass
+
+
+def get_neighbors(ch_num: int, index: int, range: int) -> List[str]:
+    # TODO: get neighbouring region
+    pass
