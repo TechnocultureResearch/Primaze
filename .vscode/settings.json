@@ -25,7 +25,8 @@
         ".mypy_cache": true,
         "docs": true,
         "coverage.xml": true,
-        ".VSCodeCounter": true
+        ".VSCodeCounter": true,
+        "monkeytype.*": true
     },
     "editor.formatOnSave": true,
     // "python.linting.pylintEnabled": true,

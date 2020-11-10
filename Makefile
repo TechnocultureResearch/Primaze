@@ -2,7 +2,7 @@ MAIN= ./main.py
 SHELL:= /bin/bash
 MODULES= Primaze
 
-all:
+all: format
 	python $(MAIN)
 
 test:
@@ -15,12 +15,15 @@ clean:
 	-rm --force --recursive build/ log/*.log dist/ htmlcov/ .pytest_cache/
 	-rm --force --recursive Primaze.egg-info .coverage
 
-type:
+type: 
 	mypy $(MODULES) $(MAIN)
 
-lint: type
+lint:
 	pylint $(MODULES)
 
+format:
+	black ./
+	
 
 # =================================================================
 start:
