@@ -11,6 +11,7 @@ pylint
 # mkdocs
 # pycycle
 python-decouple
+pytest-html
 
 # ...
 dataclasses

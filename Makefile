@@ -6,14 +6,14 @@ all: format
 	python $(MAIN)
 
 test:
-	pytest
+	pytest --html=report.html --self-contained-html
 
 debug:
 	pdb $(MAIN)
 
 clean:
 	-rm --force --recursive build/ log/*.log dist/ htmlcov/ .pytest_cache/
-	-rm --force --recursive Primaze.egg-info .coverage
+	-rm --force --recursive Primaze.egg-info .coverage report.html
 
 type: 
 	mypy $(MODULES) $(MAIN)
