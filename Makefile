@@ -30,8 +30,8 @@ start:
 	source $(PWD)/.bashrc
 	source $(PWD)/venv/bin/activate
 
-init: start
-	sudo apt install python3-pip
+init: #start
+	# sudo apt install python3-pip
 	pip install -U -r requirements.txt
 	# sudo apt-get update
 
