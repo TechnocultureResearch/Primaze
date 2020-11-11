@@ -13,18 +13,11 @@ pylint
 python-decouple
 pytest-html
 
+
 # ...
 dataclasses
 termcolor
 hurry.filesize
-
-
-# web
-flask
-flask-bootstrap
-nginx
-
-supervisor
 
 
 # primer
